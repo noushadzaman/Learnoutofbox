@@ -128,7 +128,7 @@ const HomePage = async () => {
               >
                 <div className="flex  flex-col gap-4 items-center justify-between rounded-md p-6">
                   <Image
-                    src={category.thumbnail}
+                    src={`/assets/${category.thumbnail}`}
                     alt={category.title}
                     width={100}
                     height={100}

@@ -5,6 +5,10 @@ const courseSchema = new Schema({
     required: true,
     type: String,
   },
+  subtitle: {
+    required: true,
+    type: String,
+  },
   description: {
     required: true,
     type: String,
@@ -57,6 +61,18 @@ const courseSchema = new Schema({
   // required: false,
   // type: [Schema.ObjectId],
   // }
+  modifiedOn: {
+    required: true,
+    type: Date,
+  },
+  createdOn: {
+    required: true,
+    type: Date,
+  },
+  learning: {
+    required: true,
+    type: [String],
+  },
 });
 
 export const Course =
