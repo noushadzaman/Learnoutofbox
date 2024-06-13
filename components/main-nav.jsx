@@ -16,11 +16,16 @@ import {
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useSession, signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export function MainNav({ items, children }) {
 	const { data: session } = useSession();
 	const [showMobileMenu, setShowMobileMenu] = useState(false);
 	const [loginSession, setLoginSession] = useState(null);
+
+	if (session?.error === "RefreshAccessTokenError") {
+		redirect("/login");
+	}
 
 	useEffect(() => {
 		setLoginSession(session);
@@ -91,19 +96,22 @@ export function MainNav({ items, children }) {
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end" className="w-56 mt-4">
 						<DropdownMenuItem className="cursor-pointer" asChild>
-							<Link href="account">Profile</Link>
+							<Link href="/account">Profile</Link>
 						</DropdownMenuItem>
 						<DropdownMenuItem className="cursor-pointer" asChild>
-							<Link href="account/enrolled-courses">My Courses</Link>
+							<Link href="/account/enrolled-courses">My Courses</Link>
 						</DropdownMenuItem>
 						<DropdownMenuItem className="cursor-pointer" asChild>
 							<Link href="">Testimonials & Certificates</Link>
 						</DropdownMenuItem>
-						<DropdownMenuItem className="cursor-pointer" asChild>
-							<Link
-								onClick={() => signOut()}
-								href="#">Logout</Link>
-						</DropdownMenuItem>
+						{
+							loginSession &&
+							<DropdownMenuItem className="cursor-pointer" asChild>
+								<Link
+									onClick={() => signOut()}
+									href="#">Logout</Link>
+							</DropdownMenuItem>
+						}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<button

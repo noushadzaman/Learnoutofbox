@@ -18,6 +18,11 @@ export async function POST(req) {
   try {
     await dbConnect();
     await User.create(newUser);
+    // if ("email available") {
+    //   return new NextResponse("User with this email already exist", {
+    //     status: 201,
+    //   });
+    // }
     return new NextResponse("User has been created", {
       status: 201,
     });
