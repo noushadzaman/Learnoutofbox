@@ -5,42 +5,42 @@ import { User } from "./model/user-model";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
 
-async function refreshAccessToken(token) {
-  try {
-    const url =
-      `https://oauth2.googleapis.com/token?` +
-      new URLSearchParams({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        grant_type: "refresh_token",
-        refresh_token: token.refreshToken,
-      });
+// async function refreshAccessToken(token) {
+//   try {
+//     const url =
+//       "https://oauth2.googleapis.com/token?" +
+//       new URLSearchParams({
+//         client_id: process.env.GOOGLE_CLIENT_ID,
+//         client_secret: process.env.GOOGLE_CLIENT_SECRET,
+//         grant_type: "refresh_token",
+//         refresh_token: token.refreshToken,
+//       });
+//     const response = await fetch(url, {
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded",
+//       },
+//       method: "POST",
+//     });
+//     const refreshedTokens = await response.json();
+//     if (!response.ok) {
+//       throw refreshedTokens;
+//     }
 
-    const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      method: "POST",
-    });
-    const refreshedToken = await response.json();
-    if (!response.OK) {
-      throw refreshedToken;
-    }
-    return {
-      ...token,
-      accessToken: refreshedToken?.access_token,
-      accessTokenExpires: Date.now() + refreshedToken?.expires_in * 1000,
-      refreshToken: refreshedToken?.refresh_token,
-    };
-  } catch (error) {
-    console.log(error);
+//     return {
+//       ...token,
+//       accessToken: refreshedTokens?.access_token,
+//       accessTokenExpires: Date.now() + refreshedTokens?.expires_in * 1000,
+//       refreshToken: refreshedTokens?.refresh_token,
+//     };
+//   } catch (error) {
+//     console.log(error);
 
-    return {
-      ...token,
-      error: "RefreshAccessTokenError",
-    };
-  }
-}
+//     return {
+//       ...token,
+//       error: "RefreshAccessTokenError",
+//     };
+//   }
+// }
 
 export const {
   handlers: { GET, POST },
@@ -89,34 +89,40 @@ export const {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user, account }) {
-      console.log(`JWT token: ${JSON.stringify(token)}`); //logggggggg
-      console.log(`JWT token: ${JSON.stringify(account)}`); //logggggggg
-      if (account && user) {
-        return {
-          accessToken: account?.access_token,
-          accessTokenExpires: Date.now() + account?.expires_in * 1000,
-          refreshToken: account?.refresh_token,
-          user,
-        };
-      }
-      if (Date.now() < token?.accessTokenExpires) {
-        console.log(`At ${new Date(Date.now())}, using old access token`); //logggggggg
-        return token;
-      }
+  // callbacks: {
+  //   async jwt({ token, user, account }) {
+  //     console.log(`JWT token: ${JSON.stringify(token)}`);
+  //     console.log(`JWT Account: ${JSON.stringify(account)}`);
 
-      console.log(`Token Expired at ${new Date(Date.now())}`); //logggggggg
-      return refreshAccessToken(token);
-    },
+  //     if (account && user) {
+  //       return {
+  //         accessToken: account?.access_token,
+  //         accessTokenExpires: Date.now() + account?.expires_in * 1000,
+  //         refreshToken: account?.refresh_token,
+  //         user,
+  //       };
+  //     }
 
-    async session({ session, token }) {
-      session.user = token.user;
-      session.accessToken = token.access_token;
-      session.error = token.error;
+  //     console.log(
+  //       `Token Will Expire at ${new Date(token.accessTokenExpires)})`
+  //     );
 
-      console.log(`Returning session ${session}`); //logggggggg
-      return session;
-    },
-  },
+  //     if (Date.now() < token?.accessTokenExpires) {
+  //       console.log(`At ${new Date(Date.now())}, Using old access token`);
+  //       return token;
+  //     }
+
+  //     console.log(`Token Expired at ${new Date(Date.now())}`);
+  //     return refreshAccessToken(token);
+  //   },
+
+  //   async session({ session, token }) {
+  //     session.user = token?.user;
+  //     session.accessToken = token?.access_token;
+  //     session.error = token?.error;
+
+  //     console.log(`Returning Session ${JSON.stringify(session)}`);
+  //     return session;
+  //   },
+  // },
 });

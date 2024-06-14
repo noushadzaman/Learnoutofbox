@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import EnrollCourse from "@/components/enroll-course";
 
 const CourseDetailsIntro = ({ title, subtitle, thumbnail }) => {
-    
+
     return (
         <div className="overflow-x-hidden  grainy">
             <section className="pt-12  sm:pt-16">
@@ -22,9 +23,7 @@ const CourseDetailsIntro = ({ title, subtitle, thumbnail }) => {
                             </p>
 
                             <div className="mt-6 flex items-center justify-center flex-wrap gap-3">
-                                <Link href="" className={cn(buttonVariants({ size: "lg" }))}>
-                                    Enroll Now
-                                </Link>
+                                <EnrollCourse />
                                 <Link
                                     href=""
                                     className={cn(
