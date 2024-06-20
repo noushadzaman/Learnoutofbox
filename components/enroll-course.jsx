@@ -5,7 +5,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { createCheckoutSession } from "@/app/actions/stripe";
 
-const EnrollCourse = ({ asLink, course }) => {
+const EnrollCourse = ({ asLink, courseId }) => {
     const formAction = async (data) => {
         const { url } = await createCheckoutSession(data);
         window.location.assign(url);
@@ -15,9 +15,7 @@ const EnrollCourse = ({ asLink, course }) => {
         <form
             action={formAction}
         >
-            <input type="hidden" name="courseId" value={course?.id} />
-            <input type="hidden" name="courseName" value={course?.title} />
-            <input type="hidden" name="coursePrice" value={course?.price} />
+            <input type="hidden" name="courseId" value={courseId} />
             {
                 asLink ?
                     <Button

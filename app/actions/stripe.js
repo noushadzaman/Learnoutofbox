@@ -2,6 +2,7 @@
 
 import { stripe } from "@/lib/stripe";
 import { formatAmountForStripe } from "@/lib/stripe-helpers";
+import { getCourseDetails } from "@/queries/courses";
 import { headers } from "next/headers";
 import Stripe from "stripe";
 
@@ -12,8 +13,10 @@ export async function createCheckoutSession(data) {
   const origin = headers().get("origin");
 
   const courseId = data.get("courseId");
-  const courseName = data.get("courseName");
-  const coursePrice = data.get("coursePrice");
+  const course = await getCourseDetails(courseId);
+  if (!course) return new Error(`Course not found`);
+  const courseName = course?.title;
+  const coursePrice = course?.price;
 
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",
