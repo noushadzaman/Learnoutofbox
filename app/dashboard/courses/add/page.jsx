@@ -25,6 +25,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { createCourse } from "@/app/actions/course";
+
+
 const formSchema = z.object({
   title: z.string().min(1, {
     message: "Title is required!",
@@ -49,13 +52,18 @@ const AddCourse = () => {
 
   const onSubmit = async (values) => {
     try {
-      router.push(`/dashboard/courses/${1}`);
+      console.log(values);
+      const course = await createCourse(values);
+
+      router.push(`/dashboard/courses/${course?._id}`);
       toast.success("Course created");
     } catch (error) {
       toast.error("Something went wrong");
     }
     console.log(values);
   };
+
+
   return (
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
       <div className="max-w-full w-[536px]">

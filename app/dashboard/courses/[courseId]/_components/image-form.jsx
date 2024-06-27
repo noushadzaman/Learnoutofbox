@@ -1,38 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // import axios from "axios";
 import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
-import * as z from "zod";
 
 import { UploadDropzone } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
-const formSchema = z.object({
-  imageUrl: z.string().min(1, {
-    message: "Image is required",
-  }),
-});
-
 export const ImageForm = ({ initialData, courseId }) => {
+  const [file, setFile] = useState(null);
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
 
-  const toggleEdit = () => setIsEditing((current) => !current);
+  useEffect(() => {
+    if (file) {
+      async function uploadFile() {
+        try {
+          const formData = new FormData();
+          formData.append("files", file[0]);
+          formData.append("destination", "./public/assets/images/courses");
+          formData.append("courseId", courseId);
 
-  const onSubmit = async (values) => {
-    try {
-      toast.success("Course updated");
-      toggleEdit();
-      router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong");
+          const response = await fetch("/api/upload", {
+            method: "POST",
+            body: formData
+          })
+          const result = await response.text();
+
+          if (response.status === 200) {
+            initialData.imageUrl = `/assets/images/courses/${file[0].path}`;
+            toast.success(result);
+            toggleEdit();
+            router.refresh()
+          }
+        }
+        catch (e) {
+          toast.error(e.message)
+        }
+      }
+
+      uploadFile();
     }
-  };
+  }, [file])
+
+  const toggleEdit = () => setIsEditing((current) => !current);
 
   return (
     <div className="mt-6 border bg-gray-50 rounded-md p-4">
@@ -71,7 +86,7 @@ export const ImageForm = ({ initialData, courseId }) => {
         ))}
       {isEditing && (
         <div>
-          <UploadDropzone />
+          <UploadDropzone onUpload={(file) => setFile(file)} />
           <div className="text-xs text-muted-foreground mt-4">
             16:9 aspect ratio recommended
           </div>

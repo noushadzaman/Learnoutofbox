@@ -11,7 +11,7 @@ import { getEnrollmentsForCourse } from "./enrollment";
 import { getTestimonialsForCourse } from "./testimonials";
 
 export async function getCourseList() {
-  const courses = await Course.find({})
+  const courses = await Course.find({ active: true })
     .select([
       "title",
       "subtitle",
@@ -70,10 +70,13 @@ export async function getCourseDetails(id) {
 }
 
 export async function getCourseDetailsByInstructor(instructorId, expand) {
-  const courses = await Course.find({ instructor: instructorId }).lean();
+  const publishedCourses = await Course.find({
+    instructor: instructorId,
+    active: true,
+  }).lean();
 
   const enrollments = await Promise.all(
-    courses.map(async (course) => {
+    publishedCourses.map(async (course) => {
       const enrollment = await getEnrollmentsForCourse(course._id.toString());
       return enrollment;
     })
@@ -84,7 +87,7 @@ export async function getCourseDetailsByInstructor(instructorId, expand) {
   }, 0);
 
   const testimonials = await Promise.all(
-    courses.map(async (course) => {
+    publishedCourses.map(async (course) => {
       const testimonial = await getTestimonialsForCourse(course._id.toString());
       return testimonial;
     })
@@ -97,17 +100,27 @@ export async function getCourseDetailsByInstructor(instructorId, expand) {
     }, 0) / totalTestimonials.length;
 
   if (expand) {
+    const allCourses = await Course.find({ instructor: instructorId }).lean();
     return {
-      courses: courses?.flat(),
+      courses: allCourses?.flat(),
       enrollments: enrollments?.flat(),
       reviews: totalTestimonials,
     };
   }
 
   return {
-    courses: courses.length,
+    courses: publishedCourses.length,
     enrollments: totalEnrollments,
     reviews: totalTestimonials.length,
     ratings: avgRating.toPrecision(2),
   };
+}
+
+export async function create(courseData) {
+  try {
+    const course = await Course.create(courseData);
+    return JSON.parse(JSON.stringify(course));
+  } catch (error) {
+    throw new Error(error);
+  }
 }

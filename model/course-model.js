@@ -6,7 +6,7 @@ const courseSchema = new Schema({
     type: String,
   },
   subtitle: {
-    required: true,
+    required: false,
     type: String,
   },
   description: {
@@ -14,7 +14,7 @@ const courseSchema = new Schema({
     type: String,
   },
   thumbnail: {
-    required: true,
+    required: false,
     type: String,
   },
   modules: [
@@ -29,10 +29,12 @@ const courseSchema = new Schema({
   //   }
   price: {
     required: true,
+    default: 0,
     type: Number,
   },
   active: {
     required: true,
+    default: false,
     type: Boolean,
   },
   category: {
@@ -47,9 +49,10 @@ const courseSchema = new Schema({
     //required: false,
     //type: Schema.ObjectId,
   },
-  quizzes: {
+  quizSet: {
     required: false,
     type: Schema.ObjectId,
+    ref: "Quizset"
   },
   testimonials: [
     {
@@ -63,14 +66,16 @@ const courseSchema = new Schema({
   // }
   modifiedOn: {
     required: true,
+    default: Date.now(),
     type: Date,
   },
   createdOn: {
     required: true,
+    default: Date.now(),
     type: Date,
   },
   learning: {
-    required: true,
+    required: false,
     type: [String],
   },
 });
