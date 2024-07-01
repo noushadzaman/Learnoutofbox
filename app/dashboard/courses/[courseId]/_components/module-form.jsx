@@ -60,7 +60,7 @@ export const ModulesForm = ({ initialData, courseId }) => {
           title: values.title,
         },
       ]);
-      
+
       toast.success("Module created");
       toggleCreating();
       router.refresh();
@@ -73,7 +73,7 @@ export const ModulesForm = ({ initialData, courseId }) => {
     try {
       setIsUpdating(true);
       reOrderModules(updateData);
-      
+
       toast.success("Chapters reordered");
       router.refresh();
     } catch {
@@ -84,7 +84,7 @@ export const ModulesForm = ({ initialData, courseId }) => {
   };
 
   const onEdit = (id) => {
-    router.push(`/dashboard/courses/1/modules/${1}`);
+    router.push(`/dashboard/courses/${courseId}/modules/${id}`);
   };
 
   return (

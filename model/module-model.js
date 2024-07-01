@@ -22,10 +22,12 @@ const moduleSchema = new Schema({
     required: true,
     type: Schema.ObjectId,
   },
-  lessonIds: {
-    required: true,
-    type: [Schema.ObjectId],
-  },
+  lessonIds: [
+    {
+      ref: "Lesson",
+      type: Schema.ObjectId,
+    },
+  ],
   order: {
     required: true,
     type: Number,
