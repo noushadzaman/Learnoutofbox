@@ -18,7 +18,9 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-// import { VideoPlayer } from "@/app/(player)/[course_slug]/[lesson]/_components/video-player";
+import { VideoPlayer } from "@/components/video-player";
+import { updateLesson } from "@/app/actions/lesson";
+import { formatDuration } from "@/lib/date";
 
 const formSchema = z.object({
   url: z.string().min(1, {
@@ -34,19 +36,48 @@ export const VideoUrlForm = ({ initialData, courseId, lessonId }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
+  const [states, setStates] = useState(
+    {
+      url: initialData?.url,
+      duration: formatDuration(initialData?.duration)
+    }
+  );
+
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData,
+    defaultValues: states,
   });
 
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values) => {
     try {
-      toast.success("Lesson updated");
-      toggleEdit();
-      router.refresh();
+      const payLoad = {};
+
+      const url = values?.url;
+      payLoad["video_url"] = url;
+
+      const splitted = values?.duration.split(":");
+
+      if (splitted.length === 3) {
+        const duration = Number(splitted[0]) * 3600 + Number(splitted[1]) * 60 + Number(splitted[2]) * 1;
+
+        payLoad["duration"] = duration;
+
+        await updateLesson(lessonId, payLoad);
+        toast.success("Lesson updated");
+
+        setStates({
+          url: url,
+          duration: duration
+        })
+        toggleEdit();
+        router.refresh();
+
+      } else {
+        toast.error("The duration must be hh:mm:ss format")
+      }
     } catch {
       toast.error("Something went wrong");
     }
@@ -70,10 +101,10 @@ export const VideoUrlForm = ({ initialData, courseId, lessonId }) => {
       {!isEditing && (
         <>
           <p className="text-sm mt-2">
-            {"https://www.youtube.com/embed/Cn4G2lZ_g2I?si=8FxqU8_NU6rYOrG1"}
+            {states?.url}
           </p>
           <div className="mt-6">
-            <VideoPlayer />
+            <VideoPlayer url={states?.url} />
           </div>
         </>
       )}
