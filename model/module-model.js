@@ -12,7 +12,7 @@ const moduleSchema = new Schema({
   active: {
     required: true,
     default: false,
-    type: String,
+    type: Boolean,
   },
   slug: {
     required: true,
