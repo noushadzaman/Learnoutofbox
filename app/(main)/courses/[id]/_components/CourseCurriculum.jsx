@@ -6,9 +6,13 @@ import {
 import CourseModuleList from "./module/CourseModuleList";
 
 const CourseCurriculum = ({ course }) => {
-    const totalDuration = course?.modules?.reduce((acc, obj) => {
-        return acc + obj.duration
-    }, 0)
+    const totalDuration = course?.modules.map(item => {
+        return item.lessonIds.reduce(function (acc, obj) {
+            return acc + obj.duration;
+        }, 0)
+    }).reduce(function (acc, obj) {
+        return acc + obj;
+    }, 0);
 
     return (
         <>
@@ -19,13 +23,12 @@ const CourseCurriculum = ({ course }) => {
                 </span>
                 <span className="flex items-center gap-1.5">
                     <Clock10 className="w-4 h-4" />
-                    {Math.floor(totalDuration / 60)} Hours
+                    {(totalDuration / 3660).toPrecision(2)} Hours
                 </span>
                 {/* <span className="flex items-center gap-1.5">
                     <Radio className="w-4 h-4" />{course} Live Class
                 </span> */}
             </div>
-
 
             <Accordion
                 defaultValue={["item-1", "item-2", "item-3"]}

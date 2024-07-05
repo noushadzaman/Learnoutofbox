@@ -1,5 +1,7 @@
+import { CourseProgress } from "@/components/course-progress";
 import { Badge } from "@/components/ui/badge";
 import { getCategoryDetails } from "@/queries/categories";
+import { getCourseDetails } from "@/queries/courses";
 import { getReport } from "@/queries/reports";
 import { BookOpen } from "lucide-react";
 import Image from "next/image";
@@ -12,13 +14,21 @@ const EnrolledCourseCard = async ({ enrollment }) => {
         student: enrollment?.student?._id
     };
     const report = await getReport(filter);
+    // Get total module number
+    const courseDetails = await getCourseDetails(enrollment?.course?._id);
+    const totalModuleCount = courseDetails?.modules?.length;
 
-    const totalCompletedModules = report?.totalCompletedModules?.length;
+    // Total completed modules
+    const totalCompletedModules = report?.totalCompletedModules ? report?.totalCompletedModules?.length : 0;
+
+    // Total progress  
+    const totalProgress = totalModuleCount ? (totalCompletedModules / totalModuleCount) * 100 : 0;
+
+    // Get all quizzes and assignments 
     const quizzes = report?.quizAssessment?.assessments;
+    const totalQuizzes = quizzes.length ?? 0;
 
-    const totalQuizzes = quizzes.length;
-
-    const quizzesTaken = quizzes.filter(q => q.attempted);
+    const quizzesTaken = quizzes ? quizzes.filter(q => q.attempted) : [];
 
     const totalCorrect = quizzesTaken.map(q => {
         const item = q?.options;
@@ -28,11 +38,9 @@ const EnrolledCourseCard = async ({ enrollment }) => {
     }).filter(e => e.length > 0).flat();
 
     const marksFromQuizzes = totalCorrect?.length * 5;
-    const otherMarks = report?.quizAssessment?.otherMarks;
+    const otherMarks = report?.quizAssessment?.otherMarks ?? 0;
     const totalMarks = marksFromQuizzes + otherMarks;
-
-    // console.log({ totalCorrect });
-
+    
     return (
         <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
             <div className="relative w-full aspect-video rounded-md overflow-hidden">
@@ -102,11 +110,11 @@ const EnrolledCourseCard = async ({ enrollment }) => {
                     </p>
                 </div>
 
-                {/* <CourseProgress
-                size="sm"
-                value={80}
-                variant={110 === 100 ? "success" : ""}
-            /> */}
+                <CourseProgress
+                    size="sm"
+                    value={totalProgress}
+                    variant={110 === 100 ? "success" : ""}
+                />
             </div>
         </div>
 
