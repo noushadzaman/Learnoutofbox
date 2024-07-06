@@ -1,6 +1,7 @@
 "use client";
 
 export const VideoPlayer = ({}) => {
+  
   return (
     <div className="relative aspect-video">
       <iframe

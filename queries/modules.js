@@ -19,7 +19,16 @@ export async function getModule(moduleId) {
         model: Lesson,
       })
       .lean();
-      
+
+    return replaceMongoIdInObject(singleModule);
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
+export async function getModuleBySlug(moduleSlug) {
+  try {
+    const singleModule = await Module.findOne({ slug: moduleSlug }).lean();
     return replaceMongoIdInObject(singleModule);
   } catch (e) {
     throw new Error(e);
