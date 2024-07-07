@@ -26,7 +26,7 @@ const EnrolledCourseCard = async ({ enrollment }) => {
 
     // Get all quizzes and assignments 
     const quizzes = report?.quizAssessment?.assessments;
-    const totalQuizzes = quizzes.length ?? 0;
+    const totalQuizzes = quizzes?.length ?? 0;
 
     const quizzesTaken = quizzes ? quizzes.filter(q => q.attempted) : [];
 

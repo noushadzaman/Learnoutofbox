@@ -21,6 +21,10 @@ const reportSchema = new Schema({
     ref: "Assessment",
     type: Schema.ObjectId,
   },
+  completion_date: {
+    required: false,
+    type: Date,
+  },
 });
 
 export const Report =

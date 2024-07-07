@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 
@@ -18,6 +18,7 @@ const LessonVideo = ({ courseId, lesson, module }) => {
     }, []);
 
     useEffect(() => {
+        setEnded(false);
         async function updateLessonWatch() {
             const response = await fetch(`/api/lesson-watch`, {
                 method: "POST",
@@ -32,7 +33,7 @@ const LessonVideo = ({ courseId, lesson, module }) => {
                     lastTime: 0
                 })
             })
-            if (response.state === 200) {
+            if (response.status === 200) {
                 const result = await response.text();
                 console.log(result);
                 setStarted(true);
@@ -56,7 +57,7 @@ const LessonVideo = ({ courseId, lesson, module }) => {
                     lastTime: duration
                 })
             })
-            if (response.state === 200) {
+            if (response.status === 200) {
                 const result = await response.text();
                 console.log(result);
                 setEnded(true);
