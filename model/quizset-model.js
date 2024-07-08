@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { Quiz } from "./quizzes-model";
 
 const quizSetSchema = new Schema({
   title: {
@@ -14,7 +13,7 @@ const quizSetSchema = new Schema({
   },
   quizIds: [
     {
-      ref: Quiz,
+      ref: "Quiz",
       type: Schema.ObjectId,
     },
   ],
@@ -26,4 +25,4 @@ const quizSetSchema = new Schema({
 });
 
 export const QuizSet =
-  mongoose.models.QuizSet ?? mongoose.model("QuizSet", quizSetSchema);
+  mongoose.models.Quizset ?? mongoose.model("Quizset", quizSetSchema);

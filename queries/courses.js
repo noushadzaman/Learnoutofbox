@@ -11,6 +11,8 @@ import { User } from "@/model/user-model";
 import { getEnrollmentsForCourse } from "./enrollment";
 import { getTestimonialsForCourse } from "./testimonials";
 import { Lesson } from "@/model/lesson-model";
+import { QuizSet } from "@/model/quizset-model";
+import { Quiz } from "@/model/quizzes-model";
 
 export async function getCourseList() {
   const courses = await Course.find({ active: true })
@@ -68,6 +70,14 @@ export async function getCourseDetails(id) {
       populate: {
         path: "user",
         model: User,
+      },
+    })
+    .populate({
+      path: "quizSet",
+      model: QuizSet,
+      populate: {
+        path: "quizIds",
+        model: Quiz,
       },
     })
     .lean();
