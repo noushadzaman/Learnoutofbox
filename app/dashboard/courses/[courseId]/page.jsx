@@ -72,7 +72,7 @@ const EditCourse = async ({ params: { courseId } }) => {
               courseId={courseId}
             />
             <ImageForm
-              initialData={{ imageUrl: `/assets/images/courses/${course.thumbnail}` }}
+              initialData={{ imageUrl: `${course.thumbnail ? course.thumbnail : ''}` }}
               courseId={courseId}
             />
             <CategoryForm

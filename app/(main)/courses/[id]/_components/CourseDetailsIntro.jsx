@@ -60,7 +60,7 @@ const CourseDetailsIntro = async ({ course }) => {
                                         className="w-full rounded-lg"
                                         width={768}
                                         height={463}
-                                        src={`/assets/images/courses/${thumbnail}`}
+                                        src={`${thumbnail}`}
                                         alt=""
                                     />
                                 </div>

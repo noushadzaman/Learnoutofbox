@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// import axios from "axios";
 import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -10,8 +9,14 @@ import { toast } from "sonner";
 import { UploadDropzone } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { updateCourse } from "@/app/actions/course";
+
+
+const apiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+const imgBBUploadUrl = `https://api.imgbb.com/1/upload?key=${apiKey}`;
 
 export const ImageForm = ({ initialData, courseId }) => {
+  const [thumbnail, setThumbnail] = useState(initialData?.imageUrl);
   const [file, setFile] = useState(null);
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
@@ -21,28 +26,31 @@ export const ImageForm = ({ initialData, courseId }) => {
       async function uploadFile() {
         try {
           const formData = new FormData();
-          formData.append("files", file[0]);
-          formData.append("destination", "./public/assets/images/courses");
-          formData.append("courseId", courseId);
+          formData.append("image", file[0]);
+          console.log(file, formData)
+          const response = await fetch(imgBBUploadUrl, {
+            method: 'POST',
+            body: formData,
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
 
-          const response = await fetch("/api/upload", {
-            method: "POST",
-            body: formData
-          })
-          const result = await response.text();
+          const result = await response.json();
 
-          if (response.status === 200) {
-            initialData.imageUrl = `/assets/images/courses/${file[0].path}`;
-            toast.success(result);
+          if (result.success) {
+            await updateCourse(courseId, { thumbnail: result.data.url });
+            setThumbnail(result.data.url);
             toggleEdit();
-            router.refresh()
+            router.refresh();
+          } else {
+            console.error('Image upload failed:', result);
           }
         }
         catch (e) {
-          toast.error(e.message)
+          toast.error(e.message);
         }
       }
-
       uploadFile();
     }
   }, [file])
@@ -80,7 +88,7 @@ export const ImageForm = ({ initialData, courseId }) => {
               alt="Upload"
               fill
               className="object-cover rounded-md"
-              src={initialData.imageUrl}
+              src={thumbnail}
             />
           </div>
         ))}

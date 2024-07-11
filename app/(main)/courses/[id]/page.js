@@ -13,7 +13,7 @@ const SingleCoursePage = async ({ params: { id } }) => {
       <CourseDetailsIntro course={course} />
       <CourseDetails course={course} />
 
-      {course?.testimonials && (
+      {course?.testimonials.length > 0 && (
         <Testimonials
           testimonials={replaceMongoIdInArray(course?.testimonials)}
         />

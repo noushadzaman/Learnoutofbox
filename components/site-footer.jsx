@@ -27,14 +27,6 @@ export function SiteFooter({ className }) {
               Vercel
             </a>
             . Illustrations by{" "}
-            <a
-              href="https://popsy.co"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4"
-            >
-              Popsy
-            </a>
             . The source code is available on{" "}
             <a
               href="#"

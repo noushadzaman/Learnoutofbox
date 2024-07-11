@@ -16,12 +16,14 @@ import {
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useSession, signOut } from "next-auth/react";
+import { toast } from "sonner";
 // import { redirect } from "next/navigation";
 
 export function MainNav({ items, children }) {
 	const { data: session } = useSession();
 	const [showMobileMenu, setShowMobileMenu] = useState(false);
 	const [loginSession, setLoginSession] = useState(null);
+	const [loggedInUser, setLoggedInUser] = useState(null);
 
 	// if (session?.error === "RefreshAccessTokenError") {
 	// 	redirect("/login");
@@ -29,6 +31,18 @@ export function MainNav({ items, children }) {
 
 	useEffect(() => {
 		setLoginSession(session);
+		async function fetchMe() {
+			try {
+				const response = await fetch(`/api/me`);
+				const data = await response.json();
+				setLoggedInUser(data);
+			}
+			catch (err) {
+				console.log(err);
+				// toast.error(err.message);
+			}
+		}
+		fetchMe();
 	}, [session]);
 
 	return (
@@ -87,7 +101,7 @@ export function MainNav({ items, children }) {
 						<div className="cursor-pointer">
 							<Avatar>
 								<AvatarImage
-									src="https://github.com/shadcn.png"
+									src={loggedInUser?.profilePicture}
 									alt="@shadcn"
 								/>
 								<AvatarFallback>CN</AvatarFallback>
@@ -98,6 +112,12 @@ export function MainNav({ items, children }) {
 						<DropdownMenuItem className="cursor-pointer" asChild>
 							<Link href="/account">Profile</Link>
 						</DropdownMenuItem>
+						{
+							loggedInUser?.role === 'instructor' &&
+							<DropdownMenuItem className="cursor-pointer" asChild>
+								<Link href="/dashboard">Dashboard</Link>
+							</DropdownMenuItem>
+						}
 						<DropdownMenuItem className="cursor-pointer" asChild>
 							<Link href="/account/enrolled-courses">My Courses</Link>
 						</DropdownMenuItem>

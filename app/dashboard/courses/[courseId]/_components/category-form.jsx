@@ -20,7 +20,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { updateCourse } from "@/app/actions/course";
 
-
 const formSchema = z.object({
   value: z.string().min(1),
 });
@@ -48,7 +47,7 @@ export const CategoryForm = ({
     try {
       console.log(values);
       const selectedCategory = options.find(option => option.value === values.value);
-      await updateCourse(courseId, { "category": selectedCategory.id })
+      await updateCourse(courseId, {"category": selectedCategory.id})
       toast.success("Course updated");
       toggleEdit();
       router.refresh();
@@ -60,7 +59,6 @@ export const CategoryForm = ({
   const selectedOptions = options.find(
     (option) => option.value === initialData.value
   );
-
 
   return (
     <div className="mt-6 border bg-gray-50 rounded-md p-4">
