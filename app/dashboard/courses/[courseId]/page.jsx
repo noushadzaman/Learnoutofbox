@@ -21,7 +21,7 @@ import { getAllQuizSets } from "@/queries/quizzes";
 
 const EditCourse = async ({ params: { courseId } }) => {
   const course = await getCourseDetails(courseId);
-  const categories = await getCategories(courseId);
+  const categories = await getCategories();
 
   const mappedCategories = categories.map(c => {
     return {

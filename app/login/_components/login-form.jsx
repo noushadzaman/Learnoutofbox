@@ -21,7 +21,6 @@ export function LoginForm() {
 
   async function onSubmit(event) {
     event.preventDefault();
-
     try {
       const formData = new FormData(event.currentTarget);
       const response = await credentialLogin(formData);

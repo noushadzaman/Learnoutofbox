@@ -1,13 +1,15 @@
-// import { getInstructorDashboardData, COURSE_DATA } from "@/lib/dashboard-helper";
-// import { columns } from "./_components/columns";
-// import { DataTable } from "./_components/data-table";
+import { auth } from "@/auth";
+import { getInstructorDashboardData, COURSE_DATA } from "@/lib/dashboard-helper";
+import { columns } from "./_components/columns";
+import { DataTable } from "./_components/data-table";
 
 const CoursesPage = async () => {
-  // const courses = await getInstructorDashboardData(COURSE_DATA);
+  const session = await auth();
+  const courses = await getInstructorDashboardData(session?.user?.email, COURSE_DATA);
 
   return (
     <div className="p-6">
-      {/* <DataTable columns={columns} data={courses} /> */}
+      <DataTable columns={columns} data={courses} />
     </div>
   );
 };

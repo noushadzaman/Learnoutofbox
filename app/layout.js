@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 const poppins = Inter({ subsets: ["latin"], variable: "--font-poppins" });
 
 export const metadata = {
-  title: "EduConnect world's best learning platform",
-  description: "Explore || Learn || Built || Share",
+  title: "LearnoutofBox world's best learning platform",
+  description: "Learn || Practice || Share",
 };
 
 export default async function RootLayout({ children }) {

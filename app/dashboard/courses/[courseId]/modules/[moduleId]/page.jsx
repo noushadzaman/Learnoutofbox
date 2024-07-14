@@ -55,19 +55,12 @@ const Module = async ({ params: { courseId, moduleId } }) => {
                 <IconBadge icon={BookOpenCheck} />
                 <h2 className="text-xl">Module Lessons</h2>
               </div>
-              <LessonForm initialData={lessons} courseId={courseId} moduleId={moduleId} />
+              <LessonForm
+                initialData={lessons}
+                courseId={courseId}
+                moduleId={moduleId}
+              />
             </div>
-          </div>
-          <div>
-            <div className="flex items-center gap-x-2">
-              {/* <IconBadge icon={Video} />
-              <h2 className="text-xl">Add a video</h2> */}
-            </div>
-            {/* <ChapterVideoForm
-              initialData={chapter}
-              courseId={params.courseId}
-              chapterId={params.chapterId}
-            /> */}
           </div>
         </div>
       </div>

@@ -13,8 +13,11 @@ import { getTestimonialsForCourse } from "./testimonials";
 import { Lesson } from "@/model/lesson-model";
 import { QuizSet } from "@/model/quizset-model";
 import { Quiz } from "@/model/quizzes-model";
+import { dbConnect } from "@/service/mongo";
+import { Enrollment } from "@/model/enrollment-model";
 
 export async function getCourseList() {
+  await dbConnect();
   const courses = await Course.find({ active: true })
     .select([
       "title",
@@ -47,6 +50,7 @@ export async function getCourseList() {
 }
 
 export async function getCourseDetails(id) {
+  await dbConnect();
   const course = await Course.findById(id)
     .populate({
       path: "modules",
@@ -86,6 +90,7 @@ export async function getCourseDetails(id) {
 }
 
 export async function getCourseDetailsByInstructor(instructorId, expand) {
+  await dbConnect();
   const publishedCourses = await Course.find({
     instructor: instructorId,
     active: true,
@@ -142,10 +147,54 @@ export async function getCourseDetailsByInstructor(instructorId, expand) {
 }
 
 export async function create(courseData) {
+  await dbConnect();
   try {
     const course = await Course.create(courseData);
     return JSON.parse(JSON.stringify(course));
   } catch (error) {
     throw new Error(error);
   }
+}
+
+export async function getMostPopularCourse() {
+  try {
+    const result = await Enrollment.aggregate([
+      {
+        $group: {
+          _id: "$course",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { count: -1 },
+      },
+      {
+        $limit: 3,
+      },
+    ]);
+    return replaceMongoIdInArray(result);
+  } catch (error) {
+    console.error("Error fetching top three courses:", error);
+  }
+}
+
+export async function getCourseDetailsForCard(id) {
+  await dbConnect();
+  const course = await Course.findById(id)
+    .populate({
+      path: "instructor",
+      model: User,
+    })
+    .select([
+      "title",
+      "price",
+      "description",
+      "modules",
+      "testimonials",
+      "instructor",
+      "thumbnail",
+    ])
+    .lean();
+
+  return replaceMongoIdInObject(course);
 }

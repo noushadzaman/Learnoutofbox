@@ -21,6 +21,7 @@ import {
 
 export const Combobox = ({ options, value, onChange }) => {
     const [open, setOpen] = React.useState(false);
+    console.log(options, value);
 
     return (
         <Popover open={open} onOpenChange={setOpen}>

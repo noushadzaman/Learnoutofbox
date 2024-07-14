@@ -4,8 +4,10 @@ import { Module } from "@/model/module-model";
 import { Report } from "@/model/report-model";
 import mongoose from "mongoose";
 import { getCourseDetails } from "./courses";
+import { dbConnect } from "@/service/mongo";
 
 export async function getReport(filter) {
+  await dbConnect();
   try {
     const report = await Report.findOne(filter)
       .populate({
@@ -25,6 +27,7 @@ export async function createWatchReport({
   moduleId,
   lessonId,
 }) {
+  await dbConnect();
   try {
     let report = await Report.findOne({
       course: courseId,
@@ -83,6 +86,7 @@ export async function createWatchReport({
 }
 
 export async function createAssessmentReport(data) {
+  await dbConnect();
   try {
     let report = await Report.findOne({
       course: data.courseId,
