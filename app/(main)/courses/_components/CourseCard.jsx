@@ -1,47 +1,72 @@
-import Link from "next/link";
-import Image from "next/image";
-import { BookOpen } from "lucide-react";
-import { formatPrice } from "@/lib/formatPrice";
 import EnrollCourse from "@/components/enroll-course";
+import { getCourseDetailsForCard } from "@/queries/courses";
+import { NotebookText } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-const CourseCard = ({ course }) => {
+const CourseCard = async ({ course }) => {
+  const courseDetails = await getCourseDetailsForCard(course.id);
+  const { title, description, modules, price, instructor, testimonials,
+    thumbnail } = courseDetails || {};
 
   return (
-    <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
-      <Link key={course.id} href={`/courses/${course.id}`}>
-        <div>
-          <div className="relative w-full aspect-video rounded-md overflow-hidden">
-            <Image
-              src={course?.thumbnail}
-              alt={course?.title}
-              className="object-cover"
-              fill
-            />
-          </div>
-          <div className="flex flex-col pt-2">
-            <div className="text-lg md:text-base font-medium group-hover:text-sky-700 line-clamp-2">
-              {course?.title}
-            </div>
-            <p className="text-xs text-muted-foreground">{course?.category?.title}</p>
-            <div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">
-              <div className="flex items-center gap-x-1 text-slate-500">
-                <div>
-                  <BookOpen className="w-4" />
-                </div>
-                <span>{course?.modules?.length} Chapters</span>
-              </div>
-            </div>
-          </div>
+    <div
+      className="shadow-[#e1ecfe] shadow-lg rounded-[5px] max-w-[350px] flex flex-col justify-between items-center">
+      <div className="relative">
+        {/* <Heart size={27} className="absolute right-6 top-5 text-white cursor-pointer" /> */}
+        <Link
+          key={course.id} href={`/courses/${course.id}`}
+        >
+          <Image
+            className="h-[250px] w-full rounded-t-[5px] bg-cover"
+            src={thumbnail}
+            alt="Course image"
+            height={600}
+            width={600}
+          />
+        </Link>
+        <div
+          className="bg-[#e35e67] rounded-full text-white h-[65px] w-[65px] flex justify-center items-center font-[800] absolute right-6 bottom-[-32.5px] shadow-xl"
+        >
+          ${price}
         </div>
-      </Link>
-      <div className="flex items-center justify-between mt-4">
-        <p className="text-md md:text-sm font-medium text-slate-700">
-          {formatPrice(course?.price)}
+      </div>
+      <div className="flex flex-col gap-[15px] p-[30px]">
+        <div className="flex items-center gap-[10px]">
+          <Image
+            className="w-[35px] h-[35px] rounded-full bg-cover"
+            src={instructor?.profilePicture}
+            alt="Course image"
+            height={600}
+            width={600}
+          />
+          <p className="text-[#fe4a55] text-[15px] font-[600]">
+            {instructor?.firstName} {' '}
+            {instructor?.lastName}
+          </p>
+        </div>
+        <Link
+          key={course.id} href={`/courses/${course.id}`}
+        >
+          <p className="text-[24px] font-[800] leading-[31px] text-[#00030e] hover:text-[#fe4a55] ease-in duration-150">{title}</p>
+        </Link>
+        <p className="leading-[25px] text-[#606060]">
+          {description?.slice(0, 100)}{description.length > 100 && '...'}
         </p>
-        <EnrollCourse asLink={true} courseId={course?.id} />
+        <div className="flex justify-between items-center text-[#606060]">
+          <div className="flex items-center justify-center gap-[5px]">
+            <NotebookText size={15} className="text-[#fe4a55]" />
+            <p className="text-[15px]">{modules?.length || 0} Modules</p>
+          </div>
+          {/* <div className="flex items-center justify-center gap-[5px]">
+            <Users size={15} className="text-[#fe4a55]" />
+            <p className="text-[15px]">{testimonials?.length || 0} reviews</p>
+          </div> */}
+          <EnrollCourse asLink={true} courseId={course?.id} />
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CourseCard
+export default CourseCard;

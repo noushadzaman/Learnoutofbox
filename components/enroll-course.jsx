@@ -21,7 +21,7 @@ const EnrollCourse = ({ asLink, courseId }) => {
                     <Button
                         type="submit"
                         variant="ghost"
-                        className="text-xs text-sky-700 h-7 gap-1"
+                        className="text-xs btn-primary h-7 gap-1"
                     >
                         Enroll
                         <ArrowRight className="w-3" />

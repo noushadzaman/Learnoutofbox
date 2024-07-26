@@ -3,9 +3,8 @@ import { Heart, NotebookText, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const PopularCourseCard = async ({ course }) => {
+const CourseCard = async ({ course }) => {
     const courseDetails = await getCourseDetailsForCard(course.id);
-    console.log(course.id);
     const { title, description, modules, price, instructor, testimonials,
         thumbnail } = courseDetails || {};
 
@@ -64,4 +63,4 @@ const PopularCourseCard = async ({ course }) => {
     );
 };
 
-export default PopularCourseCard;
+export default CourseCard;

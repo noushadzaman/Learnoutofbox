@@ -9,26 +9,43 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const SORT_OPTIONS = [
+    // { label: "Most popular", value: "enrollments-desc" },
     { label: "Price: Low to High", value: "price-asc" },
     { label: "Price: High to Low", value: "price-desc" },
 ];
 
 const SortCourse = () => {
+    const [selectedSort, setSelectedSort] = useState("");
+    const searchParams = useSearchParams();
+    const { replace } = useRouter();
+
+    const handleValueChange = (value) => {
+        const params = new URLSearchParams(searchParams);
+        if (value === "price-asc") {
+            params.set('price', 'asc');
+        } else if ("price-desc") {
+            params.set('price', 'desc');
+        }
+        replace(`courses?${params.toString()}`);
+    };
+
     return (
-        <Select>
-            <SelectTrigger className="w-[180px] border-none !border-b focus:ring-0 focus:ring-offset-0  overflow-hidden">
+        <Select onValueChange={handleValueChange}>
+            <SelectTrigger className="w-[180px] !border-b focus:ring-0 focus:ring-offset-0  overflow-hidden bg-[#f5f5f5]">
                 <SelectValue placeholder="Sort By" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel>Fruits</SelectLabel>
                     {SORT_OPTIONS.map((option) => (
                         <SelectItem
                             className="cursor-pointer"
                             key={option.value}
                             value={option.value}
+                            onSelect={() => handleSelect(option.value)}
                         >
                             {option.label}
                         </SelectItem>

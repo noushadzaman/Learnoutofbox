@@ -45,7 +45,7 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -54,21 +54,14 @@ export function LoginForm() {
                 name="email"
                 type="email"
                 placeholder="m@example.com"
-                {...register("email", { required: "Email is required" })}
+                required
               />
-              {errors.email && <span className="text-red-400">This field is required</span>}
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
               </div>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                {...register("password", { required: "password is required" })}
-              />
-              {errors.password && <span className="text-red-400">{errors.password?.message}</span>}
+              <Input id="password" name="password" type="password" required />
             </div>
             <Button type="submit" className="w-full">
               Login
@@ -77,13 +70,14 @@ export function LoginForm() {
         </form>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <p>Register as {" "}
+          <p>
+            Register as {" "}
             <Link href="/register/instructor" className="underline">
-              instructor
-            </Link>{" "}
-            or{" "}
+              Instructor
+            </Link>
+            {" "} or {" "}
             <Link href="/register/student" className="underline">
-              student
+              Student
             </Link>
           </p>
         </div>

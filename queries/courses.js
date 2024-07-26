@@ -16,9 +16,14 @@ import { Quiz } from "@/model/quizzes-model";
 import { dbConnect } from "@/service/mongo";
 import { Enrollment } from "@/model/enrollment-model";
 
-export async function getCourseList() {
+export async function getCourseList(course, price) {
   await dbConnect();
-  const courses = await Course.find({ active: true })
+  const regex = new RegExp(course, "i");
+  const sort = {};
+  if (price !== undefined) {
+    sort.price = price;
+  }
+  const courses = await Course.find({ active: true, title: { $regex: regex } })
     .select([
       "title",
       "subtitle",
@@ -44,6 +49,7 @@ export async function getCourseList() {
       path: "modules",
       model: Module,
     })
+    .sort(sort)
     .lean();
 
   return replaceMongoIdInArray(courses);

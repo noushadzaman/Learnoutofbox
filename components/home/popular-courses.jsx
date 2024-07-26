@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Introductions from "./introductions";
-import PopularCourseCard from "./popular-course-card";
+import CourseCard from "./popular-course-card";
 import { getMostPopularCourse } from "@/queries/courses";
 
 const PopularCourses = async () => {
     const popularCourses = await getMostPopularCourse();
-    console.log(popularCourses);
 
     return (
         <section className="py-[100px] max-w-[1250px] mx-auto">
@@ -18,7 +17,7 @@ const PopularCourses = async () => {
             />
             <div className="flex flex-col flex-wrap justify-center items-center md:flex-row gap-[30px] my-[50px] mx-[30px]">
                 {
-                    popularCourses.map(course => <PopularCourseCard
+                    popularCourses.map(course => <CourseCard
                         key={course.id}
                         course={course}
                     />)
