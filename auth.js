@@ -1,9 +1,12 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import CredentialProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { User } from "./model/user-model";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import mongoClientPromise from "./mongoClientPromise";
+import { dbConnect } from "./service/mongo";
 
 // async function refreshAccessToken(token) {
 //   try {
@@ -48,18 +51,27 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  adapter: MongoDBAdapter(mongoClientPromise, {
+    databaseName: process.env.ENVIRONMENT,
+  }),
   ...authConfig,
   providers: [
-    CredentialsProvider({
+    CredentialProvider({
       async authorize(credentials) {
         if (credentials == null) return null;
 
         try {
-          const user = await User.findOne({ email: credentials?.email });
+          await dbConnect();
+          const user = await User.findOne({
+            email: credentials?.email,
+          });
           console.log(user);
 
           if (user) {
-            const isMatch = bcrypt.compare(credentials.password, user.password);
+            const isMatch = await bcrypt.compare(
+              credentials.password,
+              user.password
+            );
 
             if (isMatch) {
               return user;
@@ -89,6 +101,7 @@ export const {
       },
     }),
   ],
+
   // callbacks: {
   //   async jwt({ token, user, account }) {
   //     console.log(`JWT token: ${JSON.stringify(token)}`);

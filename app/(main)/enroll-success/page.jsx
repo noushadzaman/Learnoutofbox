@@ -58,8 +58,8 @@ const Success = async ({ searchParams: { session_id, courseId } }) => {
     }
 
     return (
-        <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
-            <div className="flex flex-col items-center gap-6 max-w-[600px] text-center">
+        <div className="w-full flex-1 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center gap-6 max-w-[600px] h-[60vh] justify-center">
                 {
                     paymentStatus === "succeeded" && <>
                         <CircleCheck className="w-32 h-32 bg-[#90d790] rounded-full p-0  text-white" />

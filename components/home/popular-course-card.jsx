@@ -1,22 +1,30 @@
 import { getCourseDetailsForCard } from "@/queries/courses";
 import { Heart, NotebookText, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const PopularCourseCard = async ({ course }) => {
+    const courseDetails = await getCourseDetailsForCard(course.id);
+    console.log(course.id);
     const { title, description, modules, price, instructor, testimonials,
-        thumbnail } = await getCourseDetailsForCard(course.id);
+        thumbnail } = courseDetails || {};
 
     return (
-        <div className="shadow-[#e1ecfe] shadow-lg rounded-[5px] max-w-[370px]">
+        <div
+            className="shadow-[#e1ecfe] shadow-lg rounded-[5px] max-w-[370px]">
             <div className="relative">
                 {/* <Heart size={27} className="absolute right-6 top-5 text-white cursor-pointer" /> */}
-                <Image
-                    className="h-[250px] w-full rounded-t-[5px] bg-cover"
-                    src={thumbnail}
-                    alt="Course image"
-                    height={600}
-                    width={600}
-                />
+                <Link
+                    href={`/courses/${course.id}`}
+                >
+                    <Image
+                        className="h-[250px] w-full rounded-t-[5px] bg-cover"
+                        src={thumbnail}
+                        alt="Course image"
+                        height={600}
+                        width={600}
+                    />
+                </Link>
                 <div
                     className="bg-[#e35e67] rounded-full text-white h-[65px] w-[65px] flex justify-center items-center font-[800] absolute right-6 bottom-[-32.5px] shadow-xl"
                 >
@@ -37,16 +45,18 @@ const PopularCourseCard = async ({ course }) => {
                         {instructor?.lastName}
                     </p>
                 </div>
-                <p className="text-[24px] font-[800] leading-[31px] text-[#00030e]">{title}</p>
-                <p className="leading-[25px] text-[#606060]">{description}</p>
+                <p className="text-[24px] font-[800] leading-[31px] text-[#00030e] hover:text-[#fe4a55] ease-in duration-150">{title}</p>
+                <p className="leading-[25px] text-[#606060]">
+                    {description?.slice(0, 100)}{description.length > 100 && '...'}
+                </p>
                 <div className="flex justify-between items-center text-[#606060]">
                     <div className="flex items-center justify-center gap-[5px]">
                         <NotebookText size={15} className="text-[#fe4a55]" />
-                        <p className="text-[15px]">{modules.length} Modules</p>
+                        <p className="text-[15px]">{modules?.length || 0} Modules</p>
                     </div>
                     <div className="flex items-center justify-center gap-[5px]">
                         <Users size={15} className="text-[#fe4a55]" />
-                        <p className="text-[15px]">{testimonials.length} reviews</p>
+                        <p className="text-[15px]">{testimonials?.length || 0} reviews</p>
                     </div>
                 </div>
             </div>

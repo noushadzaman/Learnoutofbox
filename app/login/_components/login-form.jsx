@@ -12,11 +12,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { credentialLogin } from "@/app/actions";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function LoginForm() {
-  const [error, setError] = useState('');
   const router = useRouter();
 
   async function onSubmit(event) {
@@ -25,14 +24,15 @@ export function LoginForm() {
       const formData = new FormData(event.currentTarget);
       const response = await credentialLogin(formData);
 
-      if (!!response.error) {
+      if (response.error) {
         console.error(response.error)
-        setError(response.error);
+        toast.error(response.error);
       } else {
         router.push("/courses");
       }
-    } catch (e) {
-      setError(e.message);
+    } catch (error) {
+      toast.error(error.message);
+      console.error(error.message)
     }
   }
 
@@ -45,7 +45,7 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -54,8 +54,9 @@ export function LoginForm() {
                 name="email"
                 type="email"
                 placeholder="m@example.com"
-                required
+                {...register("email", { required: "Email is required" })}
               />
+              {errors.email && <span className="text-red-400">This field is required</span>}
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
@@ -65,8 +66,9 @@ export function LoginForm() {
                 id="password"
                 name="password"
                 type="password"
-                required
+                {...register("password", { required: "password is required" })}
               />
+              {errors.password && <span className="text-red-400">{errors.password?.message}</span>}
             </div>
             <Button type="submit" className="w-full">
               Login

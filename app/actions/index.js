@@ -11,7 +11,7 @@ export async function credentialLogin(formData) {
     });
     return response;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw new Error(error);
   }
 }
