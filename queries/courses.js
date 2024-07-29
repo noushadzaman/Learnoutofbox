@@ -52,7 +52,14 @@ export async function getCourseList(course, price) {
     .sort(sort)
     .lean();
 
-  return replaceMongoIdInArray(courses);
+  const coursesWithEnrollmentsNumber = await Promise.all(
+    courses.map(async (course) => {
+      const enrollments = await Enrollment.find({ course: course._id }).lean();
+      return { ...course, enrollments };
+    })
+  );
+
+  return replaceMongoIdInArray(coursesWithEnrollmentsNumber);
 }
 
 export async function getCourseDetails(id) {
@@ -191,6 +198,10 @@ export async function getCourseDetailsForCard(id) {
       path: "instructor",
       model: User,
     })
+    .populate({
+      path: "category",
+      model: Category,
+    })
     .select([
       "title",
       "price",
@@ -199,6 +210,7 @@ export async function getCourseDetailsForCard(id) {
       "testimonials",
       "instructor",
       "thumbnail",
+      "category",
     ])
     .lean();
 

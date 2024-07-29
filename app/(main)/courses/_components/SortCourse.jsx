@@ -5,21 +5,17 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 const SORT_OPTIONS = [
-    // { label: "Most popular", value: "enrollments-desc" },
     { label: "Price: Low to High", value: "price-asc" },
     { label: "Price: High to Low", value: "price-desc" },
 ];
 
 const SortCourse = () => {
-    const [selectedSort, setSelectedSort] = useState("");
     const searchParams = useSearchParams();
     const { replace } = useRouter();
 

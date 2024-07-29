@@ -5,7 +5,6 @@ import CourseCard from "./_components/CourseCard";
 
 const CoursesPage = async ({ searchParams: { course, price } }) => {
   const courses = await getCourseList(course, price);
-  console.log(price);
 
   return (
     <section

@@ -2,11 +2,12 @@ import { getCourseDetailsForCard } from "@/queries/courses";
 import { Heart, NotebookText, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import EnrollCourse from "../enroll-course";
 
 const CourseCard = async ({ course }) => {
     const courseDetails = await getCourseDetailsForCard(course.id);
     const { title, description, modules, price, instructor, testimonials,
-        thumbnail } = courseDetails || {};
+        thumbnail, category } = courseDetails || {};
 
     return (
         <div
@@ -44,19 +45,21 @@ const CourseCard = async ({ course }) => {
                         {instructor?.lastName}
                     </p>
                 </div>
-                <p className="text-[24px] font-[800] leading-[31px] text-[#00030e] hover:text-[#fe4a55] ease-in duration-150">{title}</p>
+                <Link
+                    key={course.id} href={`/courses/${course.id}`}
+                >
+                    <p className="text-[24px] font-[800] leading-[31px] text-[#00030e] hover:text-[#fe4a55] ease-in duration-150">{title}</p>
+                    <p className="text-[17px] font-[500] leading-[31px] text-[#00030e]">{category?.title}</p>
+                </Link>
                 <p className="leading-[25px] text-[#606060]">
                     {description?.slice(0, 100)}{description.length > 100 && '...'}
                 </p>
                 <div className="flex justify-between items-center text-[#606060]">
                     <div className="flex items-center justify-center gap-[5px]">
-                        <NotebookText size={15} className="text-[#fe4a55]" />
-                        <p className="text-[15px]">{modules?.length || 0} Modules</p>
-                    </div>
-                    <div className="flex items-center justify-center gap-[5px]">
                         <Users size={15} className="text-[#fe4a55]" />
-                        <p className="text-[15px]">{testimonials?.length || 0} reviews</p>
+                        <p className="text-[15px]">{course?.count} Students</p>
                     </div>
+                    <EnrollCourse asLink={true} courseId={course?.id} />
                 </div>
             </div>
         </div>

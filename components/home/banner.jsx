@@ -30,7 +30,7 @@ const Banner = () => {
                     Empower Your Future with Comprehensive Learning: Courses, Quizzes,
                     and Roadmaps for Success.
                 </p>
-                <div className="flex items-center gap-3 flex-wrap justify-center">
+                <div className="flex items-center gap-3 flex-wrap ">
                     <Link
                         href="/courses"
                         className={cn(buttonVariants({ size: "lg" }))}

@@ -31,7 +31,7 @@ export function TestimonialCarousel({ reviews }) {
                         <div className="p-1">
                             <Card className="h-[auto] py-[40px] md:h-[400px] rounded-[5px] bg-[#fef8f8] border-none shadow-none">
                                 <CardContent className="flex flex-col md:flex-row items-center gap-7 justify-center h-full">
-                                    <div className="max-w-[50%]">
+                                    <div className="max-w-[80%] lg:max-w-[50%]">
                                         <p
                                             className="text-[#606060] text-[18px]"
                                         >{review.review}</p>

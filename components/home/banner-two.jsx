@@ -11,12 +11,11 @@ import {
     MoveUpRight,
 } from "lucide-react";
 import BannerImgTwo from "../../public/banner-two.png";
-import BannerImgThree from "../../public/banner-three.png";
 
 
 const BannerTwo = ({ title, subtitle, btn }) => {
     return (
-        <section className='bg-[#fafbff]'>
+        <section className='bg-[#fafbff] px-[40px]'>
             <div className={`md:flex  justify-center items-center space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-32 max-w-[1300px] mx-auto`}>
                 <Image
                     className="max-w-full max-h-[600px] mx-auto"
@@ -34,7 +33,7 @@ const BannerTwo = ({ title, subtitle, btn }) => {
                         size={'full'}
                     />
                     <div className="py-[15px] w-[100%] flex flex-col text-[18px] gap-[15px]">
-                        <div className="flex items-center justify-between w-[90%]">
+                        <div className="flex items-center justify-between lg:w-[90%] mx-auto">
                             <div className="flex items-center gap-[10px]">
                                 <User className="text-[#fe4a55]" />
                                 <p className="text-[#00030e] font-[600]">Expert Instructors</p>
@@ -44,7 +43,7 @@ const BannerTwo = ({ title, subtitle, btn }) => {
                                 <p className="text-[#00030e] font-[600]">Remote Learning</p>
                             </div>
                         </div>
-                        <div className="flex items-center justify-between w-[90%]">
+                        <div className="flex items-center justify-between lg:w-[90%] mx-auto">
                             <div className="flex items-center gap-[10px] text-[18px]">
                                 <AlarmClockCheck className="text-[#fe4a55]" />
                                 <p className="text-[#00030e] font-[600]">Lifetime Access</p>
