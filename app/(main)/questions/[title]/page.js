@@ -7,21 +7,28 @@ import { getUserByEmail } from "@/queries/users";
 const page = async ({ params: { title } }) => {
   const test = await getTest(title);
   const session = await auth();
-  const { id } = await getUserByEmail(session?.user?.email);
-  const attempt = await getTestAttemptByUserIdAndTitle(id, test?.title);
+  const loggedInUser = await getUserByEmail(session?.user?.email);
+  const attempt = await getTestAttemptByUserIdAndTitle(
+    loggedInUser?.id,
+    test?.title
+  );
 
   return (
     <div className="py-[60px] bg-[#fafbff]">
       <Introductions
         title={"Test"}
-        subtitle={"JavaScript Questions"}
+        subtitle={`${test?.title} Questions`}
         description={
-          "Test, rate and improve your JavaScript knowledge with these questions."
+          `Test, rate and improve your ${test?.title} knowledge with these questions.`
         }
         size={"half"}
         align={"center"}
       />
-      <Test test={test} userId={id} previousAttempt={attempt?.attempts} />
+      <Test
+        test={test}
+        userId={loggedInUser?.id}
+        previousAttempt={attempt?.attempts}
+      />
     </div>
   );
 };

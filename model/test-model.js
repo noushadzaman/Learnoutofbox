@@ -32,6 +32,15 @@ const testSchema = new Schema({
     type: String,
     required: true,
   },
+  creator: {
+    type: String,
+    require: true,
+  },
+  active: {
+    type: Boolean,
+    default: false,
+    require: true,
+  },
   questions: [questionSchema],
 });
 

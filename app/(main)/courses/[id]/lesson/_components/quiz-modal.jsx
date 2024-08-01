@@ -100,7 +100,7 @@ function QuizModal({ open, setOpen, isTaken, quizzes, courseId, quizSetId }) {
                 stroke-width="0"
                 version="1.1"
                 viewBox="0 0 16 16"
-                class="text-success inline"
+                className="text-success inline"
                 height="12"
                 width="12"
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,13 +1,12 @@
 "use client";
+
 import * as z from "zod";
-// import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,53 +15,47 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { createCourse } from "@/app/actions/course";
-
+import { doCreateTest } from "@/app/actions/test";
+import { getSlug } from "@/lib/convertData";
 
 const formSchema = z.object({
   title: z.string().min(1, {
     message: "Title is required!",
   }),
-  description: z.string().min(1, {
-    message: "Description is required!",
-  }),
 });
 
-const AddCourse = () => {
+const AddTest = () => {
   const router = useRouter();
-
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      description: "",
     },
   });
 
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values) => {
+    const slug = getSlug(values.title);
+    const newTest = {
+      title: values.title,
+      slug,
+    };
     try {
-      console.log(values);
-      const course = await createCourse(values);
-
-      router.push(`/dashboard/courses/${course?._id}`);
-      toast.success("Course created");
+      const test = await doCreateTest(newTest);
+      if (test.exist) {
+        toast.error(
+          "Test with this title already exist try changing the title"
+        );
+      } else {
+        router.push(`/dashboard/tests/${test?._id}`);
+        toast.success("Test created");
+      }
     } catch (error) {
       toast.error("Something went wrong");
     }
-    console.log(values);
   };
-
 
   return (
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
@@ -78,41 +71,20 @@ const AddCourse = () => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Course Title</FormLabel>
+                  <FormLabel>Test Title</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g 'Master Full Stack Development'"
+                      placeholder="e.g 'Object Oriented Programming'"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* description */}
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Course Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Course overview"
-                      className="resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Write a brief description of your course
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Link href="/dashboard/courses">
+              <Link href="/dashboard/tests">
                 <Button variant="outline" type="button">
                   Cancel
                 </Button>
@@ -128,4 +100,4 @@ const AddCourse = () => {
   );
 };
 
-export default AddCourse;
+export default AddTest;

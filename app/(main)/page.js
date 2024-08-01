@@ -11,7 +11,7 @@ const HomePage = async () => {
     <>
       <Banner />
       <Features />
-      <PopularCourses />
+      {/* <PopularCourses /> */}
       <BannerTwo />
       <HomeTestimonials />
       <Info />

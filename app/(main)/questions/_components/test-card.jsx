@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 const TestCard = ({ test, userId }) => {
     const router = useRouter();
     async function onCreateTestAttempt() {
-        const attempt = {
-            title: test?.title,
-            userId
+        if (userId) {
+            const attempt = {
+                title: test?.title,
+                userId
+            }
+            await doCreateTestAttempt(attempt);
         }
-        await doCreateTestAttempt(attempt);
         router.push(`/questions/${test.slug}`);
     }
 
@@ -23,7 +25,7 @@ const TestCard = ({ test, userId }) => {
             >
                 <h2 className="text-[20px] font-[600]">{test.title}</h2>
                 <p className="text-[14px] text-gray-400">
-                    {test.questions} Questions・{test.topic} topics
+                    {test.questions.length} Questions
                 </p>
             </div>
         </div>

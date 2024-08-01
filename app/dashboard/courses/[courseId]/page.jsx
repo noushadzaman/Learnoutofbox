@@ -1,7 +1,6 @@
 import { IconBadge } from "@/components/icon-badge";
 import {
   CircleDollarSign,
-  File,
   LayoutDashboard,
   ListChecks,
 } from "lucide-react";

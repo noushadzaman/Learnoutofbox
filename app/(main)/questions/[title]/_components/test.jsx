@@ -15,25 +15,27 @@ const Test = ({ test, userId, previousAttempt }) => {
     const totalQuestions = test?.questions?.length;
     const [progress, setProgress] = useState(previousAttempt?.length * 100 / totalQuestions || 0);
     const [attempts, setAttempts] = useState(previousAttempt || []);
+    console.log(test?.title);
 
     const onQuestionInteract = async (event, fromOnNext) => {
         if (attempts.length === totalQuestions) {
             return;
         }
         try {
-            const newAttempt = {
-                attempts: [
-                    ...attempts,
-                    {
-                        id: test?.questions[count].id,
-                        event
-                    }
-                ],
-                userId,
-                title: test?.title
+            if (userId) {
+                const newAttempt = {
+                    attempts: [
+                        ...attempts,
+                        {
+                            id: test?.questions[count].id,
+                            event
+                        }
+                    ],
+                    userId,
+                    title: test?.title
+                }
+                await doUpdateTestAttempt(newAttempt);
             }
-            await doUpdateTestAttempt(newAttempt);
-
             if (fromOnNext === 'fromOnNext') {
                 return;
             }
@@ -59,7 +61,7 @@ const Test = ({ test, userId, previousAttempt }) => {
             return;
         };
         setProgress((progress) => Math.floor(progress + 100 / totalQuestions));
-        if (count === totalQuestions) {
+        if (count+1 === totalQuestions) {
             setProgress(100);
         };
         setCount((count) => count + 1);
@@ -82,8 +84,8 @@ const Test = ({ test, userId, previousAttempt }) => {
     }
 
     const reset = () => {
-        setCount(1);
-        setProgress(100 / totalQuestions);
+        setCount(0);
+        setProgress(0);
         setAttempts([]);
     }
 
@@ -98,6 +100,7 @@ const Test = ({ test, userId, previousAttempt }) => {
                 onPrevious={onPrevious}
                 onNext={onNext}
                 reset={reset}
+                userId={userId}
             />
             <Question
                 question={test?.questions[count]}

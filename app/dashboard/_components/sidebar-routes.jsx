@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart } from "lucide-react";
+import { BarChart, BookCheck, ClipboardPlus, CopyPlus } from "lucide-react";
 
 import { BookOpen } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
@@ -19,20 +19,30 @@ const routes = [
     href: "/dashboard/courses",
   },
   {
-    icon: BookOpen,
+    icon: CopyPlus,
     label: "Add Course",
     href: "/dashboard/courses/add",
   },
   {
-    icon: Radio,
-    label: "Lives",
-    href: "/dashboard/lives",
+    icon: BookCheck,
+    label: "Tests",
+    href: "/dashboard/tests",
+  },
+  {
+    icon: ClipboardPlus,
+    label: "Add Test",
+    href: "/dashboard/tests/add",
   },
   {
     icon: BookA,
     label: "Quizes",
     href: "/dashboard/quiz-sets",
   },
+  // {
+  //   icon: Radio,
+  //   label: "Lives",
+  //   href: "/dashboard/lives",
+  // },
 ];
 
 export const SidebarRoutes = () => {
