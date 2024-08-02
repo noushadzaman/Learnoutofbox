@@ -45,7 +45,11 @@ const CourseInstructor = async ({ course }) => {
                             </li>
                             <li className="flex space-x-3">
                                 <Star className="text-gray-600" />
-                                <div>{courseDetailsByInstructor?.ratings} Average Rating</div>
+                                <div>{
+                                    isNaN(courseDetailsByInstructor?.ratings)
+                                        ? 0
+                                        : courseDetailsByInstructor?.ratings
+                                } Average Rating</div>
                             </li>
                         </ul>
                     </div>

@@ -21,7 +21,7 @@ const TestCard = ({ test, userId }) => {
             <div
                 onClick={onCreateTestAttempt}
                 key={test.title}
-                className="bg-[white] border-gray-200 border rounded-[5px] px-[20px] py-[20px] cursor-pointer hover:scale-110 ease-linear duration-100 hover:border-gray-400"
+                className="bg-[white] border-gray-200 border rounded-[5px] px-[20px] py-[20px] cursor-pointer hover:scale-110 ease-linear duration-100 hover:border-gray-400 shadow-[#e1ecfe] shadow-lg "
             >
                 <h2 className="text-[20px] font-[600]">{test.title}</h2>
                 <p className="text-[14px] text-gray-400">

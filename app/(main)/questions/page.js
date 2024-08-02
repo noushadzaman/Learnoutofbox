@@ -11,25 +11,22 @@ const page = async () => {
 
   return (
     <section className="bg-[#fef8f8]">
-      <div>
-        <div className="py-[80px] pl-[150px] max-w-[80%] xl:max-w-[60%]">
-          <Introductions
-            title={"QUESTIONS"}
-            subtitle={
-              "Quizzes to help you test and improve your knowledge and skill up"
-            }
-            align={"center"}
-          />
-        </div>
+      <div className="py-[80px] mx-auto max-w-[80%] xl:max-w-[60%]">
+        <Introductions
+          title={"QUESTIONS"}
+          subtitle={
+            "Skill assessments to help you test and improve your knowledge and skill up"
+          }
+          align={"center"}
+        />
       </div>
       <div className="bg-[#fafbff] border-gray-200 border-y">
-        <div className="pt-[30px] pb-[40px] grid grid-cols-2 gap-[12px] max-w-[80%] xl:max-w-[60%] mx-auto">
+        <div className="pt-[30px] pb-[100px] grid grid-cols-2 gap-[12px] max-w-[80%] xl:max-w-[60%] mx-auto">
           {tests.map((test) => (
             <TestCard key={test.id} test={test} userId={loggedInUser?.id} />
           ))}
         </div>
       </div>
-      <div className="h-[50px]"></div>
     </section>
   );
 };

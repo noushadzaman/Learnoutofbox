@@ -17,6 +17,7 @@ import { getCourseDetails } from "@/queries/courses";
 import { getCategories } from "@/queries/categories";
 import { replaceMongoIdInArray } from "@/lib/convertData";
 import { getAllQuizSets } from "@/queries/quizzes";
+import { LearningForm } from "./_components/learning-form";
 
 const EditCourse = async ({ params: { courseId } }) => {
   const course = await getCourseDetails(courseId);
@@ -83,6 +84,12 @@ const EditCourse = async ({ params: { courseId } }) => {
               initialData={{ quizSetId: course?.quizSet?._id.toString() }}
               courseId={courseId}
               options={mappedQuizSet}
+            />
+            <LearningForm
+              initialData={{
+                learning: course?.learning,
+              }}
+              courseId={courseId}
             />
           </div>
           <div className="space-y-6">

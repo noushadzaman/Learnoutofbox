@@ -11,7 +11,7 @@ const CourseDetails = ({ course }) => {
   return (
     <section className="py-8 md:py-12 lg:py-24">
       <div className="container">
-        <span className="bg-success px-4 py-0.5 rounded-full text-xs font-medium inline-block bg-purple-400">
+        <span className="bg-success px-4 py-0.5 rounded-[5px] text-xs font-medium inline-block bg-[#f68d89]">
           {course?.category?.title}
         </span>
         <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold 2xl:text-5xl mt-3">

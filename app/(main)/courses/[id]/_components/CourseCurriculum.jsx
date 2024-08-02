@@ -13,6 +13,8 @@ const CourseCurriculum = ({ course }) => {
     }).reduce(function (acc, obj) {
         return acc + obj;
     }, 0);
+    const orderedCourse = course?.modules.sort((a, b) => a.order - b.order);
+
 
     return (
         <>
@@ -25,19 +27,15 @@ const CourseCurriculum = ({ course }) => {
                     <Clock10 className="w-4 h-4" />
                     {(totalDuration / 3660).toPrecision(2)} Hours
                 </span>
-                {/* <span className="flex items-center gap-1.5">
-                    <Radio className="w-4 h-4" />{course} Live Class
-                </span> */}
             </div>
-
             <Accordion
                 defaultValue={["item-1", "item-2", "item-3"]}
-                type="multiple"
+                type="single"
                 collapsible
                 className="w-full"
             >
                 {
-                    course?.modules && course?.modules.map(module => <CourseModuleList
+                    orderedCourse && orderedCourse.map(module => <CourseModuleList
                         key={module._id}
                         module={module}
                     />)

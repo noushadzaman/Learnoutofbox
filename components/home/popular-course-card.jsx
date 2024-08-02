@@ -52,7 +52,7 @@ const CourseCard = async ({ course }) => {
                     <p className="text-[17px] font-[500] leading-[31px] text-[#00030e]">{category?.title}</p>
                 </Link>
                 <p className="leading-[25px] text-[#606060]">
-                    {description?.slice(0, 100)}{description.length > 100 && '...'}
+                    {description?.slice(0, 100)}{description?.length > 100 && '...'}
                 </p>
                 <div className="flex justify-between items-center text-[#606060]">
                     <div className="flex items-center justify-center gap-[5px]">

@@ -12,16 +12,17 @@ const Test = ({ test, userId, previousAttempt }) => {
     const router = useRouter();
     const [count, setCount] = useState(previousAttempt?.length || 0);
     const [isQuestion, setIsQuestion] = useState(true);
+    const [isBtnDisabled, setIsBtnDisabled] = useState(false);
     const totalQuestions = test?.questions?.length;
     const [progress, setProgress] = useState(previousAttempt?.length * 100 / totalQuestions || 0);
     const [attempts, setAttempts] = useState(previousAttempt || []);
-    console.log(test?.title);
 
     const onQuestionInteract = async (event, fromOnNext) => {
         if (attempts.length === totalQuestions) {
             return;
         }
         try {
+            setIsBtnDisabled(true);
             if (userId) {
                 const newAttempt = {
                     attempts: [
@@ -36,10 +37,6 @@ const Test = ({ test, userId, previousAttempt }) => {
                 }
                 await doUpdateTestAttempt(newAttempt);
             }
-            if (fromOnNext === 'fromOnNext') {
-                return;
-            }
-            onNext('fromOnQuestionInteract');
         }
         catch (error) {
             console.log(error);
@@ -53,44 +50,81 @@ const Test = ({ test, userId, previousAttempt }) => {
                 }
             ]);
             router.refresh();
+            setIsBtnDisabled(false);
+            if (fromOnNext === 'fromOnNext') {
+                return;
+            }
+            onNext('fromOnQuestionInteract');
         }
     }
 
     const onNext = (fromOnQuestionInteract) => {
-        if (count === totalQuestions) {
+        setCount((count) => count + 1);
+        setProgress((count + 1) * (100 / totalQuestions));
+        setIsQuestion(true);
+        if (count + 1 === totalQuestions) {
+            setIsBtnDisabled(true);
             return;
         };
-        setProgress((progress) => Math.floor(progress + 100 / totalQuestions));
-        if (count+1 === totalQuestions) {
-            setProgress(100);
-        };
-        setCount((count) => count + 1);
-        setIsQuestion(true);
         if (fromOnQuestionInteract === 'fromOnQuestionInteract') {
             return;
         }
         onQuestionInteract('skipped', 'fromOnNext');
     }
 
-    const onPrevious = () => {
+    const onPrevious = async () => {
         if (count === 0) {
             return
         }
-        setProgress((progress) => progress - 100 / totalQuestions);
-        setCount((count) => count - 1);
-        setIsQuestion(true);
-        attempts.pop();
-        setAttempts([...attempts]);
+        try {
+            setProgress((progress) => progress - 100 / totalQuestions);
+            setCount((count) => count - 1);
+            setIsQuestion(true);
+            attempts.pop();
+            setAttempts([...attempts]);
+            const newAttempt = {
+                attempts,
+                userId,
+                title: test?.title
+            }
+            setIsBtnDisabled(true);
+            if (userId) {
+                await doUpdateTestAttempt(newAttempt);
+            }
+        }
+        catch (error) {
+            console.log();
+        }
+        finally {
+            setIsBtnDisabled(false);
+        }
     }
 
-    const reset = () => {
+    const reset = async () => {
         setCount(0);
         setProgress(0);
         setAttempts([]);
+        setIsBtnDisabled(true);
+        try {
+            const newAttempt = {
+                attempts: [],
+                userId,
+                title: test?.title
+            };
+            if (userId) {
+                await doUpdateTestAttempt(newAttempt);
+            }
+        }
+        catch (error) {
+            console.log();
+        }
+        finally {
+            setIsBtnDisabled(false);
+        }
     }
 
     return (
-        <div>
+        <>
             <Progress
                 count={count}
                 totalQuestions={totalQuestions}
@@ -98,6 +132,7 @@ const Test = ({ test, userId, previousAttempt }) => {
                 previousAttempt={previousAttempt}
                 progress={progress}
                 onPrevious={onPrevious}
+                isBtnDisabled={isBtnDisabled}
                 onNext={onNext}
                 reset={reset}
                 userId={userId}
@@ -108,14 +143,14 @@ const Test = ({ test, userId, previousAttempt }) => {
                 setIsQuestion={setIsQuestion}
             />
             <TestInteractions
-                question={test?.questions[count]}
+                isBtnDisabled={isBtnDisabled}
                 onQuestionInteract={onQuestionInteract}
             />
             {
                 count === totalQuestions &&
                 <Celebration />
             }
-        </div>
+        </>
     );
 };
 

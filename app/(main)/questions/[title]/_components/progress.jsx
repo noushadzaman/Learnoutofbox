@@ -3,8 +3,8 @@ import { ChevronLeft, ChevronRight, CircleCheckBig, RotateCcw, SkipForward, Spar
 import { Badge } from "@/components/ui/badge"
 import AlertBanner from "@/components/alert-banner";
 
-const Progress = ({ count, progress, attempts, previousAttempt, onPrevious, onNext, reset, totalQuestions, userId }) => {
-    const countByEvent = (previousAttempt || attempts).reduce((acc, obj) => {
+const Progress = ({ count, progress, attempts, previousAttempt, onPrevious, onNext, reset, totalQuestions, isBtnDisabled, userId }) => {
+    const countByEvent = (attempts || previousAttempt).reduce((acc, obj) => {
         if (acc[obj.event]) {
             acc[obj.event]++;
         } else {
@@ -18,16 +18,25 @@ const Progress = ({ count, progress, attempts, previousAttempt, onPrevious, onNe
             <div className="py-[20px] px-[20px]">
                 <div className="flex items-center justify-center gap-[50px]">
                     <ProgressBar value={progress} className="" />
-                    <div className="text-nowrap text-[14px] flex items-center">
-                        <ChevronLeft
+                    <div className="text-nowrap text-[14px] flex items-center justify-center">
+                        <button
+                            disabled={isBtnDisabled}
                             onClick={onPrevious}
-                            size={18} className="text-gray-400 hover:text-[#100f1f] cursor-pointer"
-                        />
+                        >
+                            <ChevronLeft
+                                size={18} className={`text-gray-400 ${count + 1 !== totalQuestions && !isBtnDisabled && 'hover:text-[#100f1f]'} cursor-pointer`}
+                            />
+                        </button>
                         {count} / {totalQuestions}
-                        <ChevronRight
+                        <button
+                            disabled={count + 1 === totalQuestions || isBtnDisabled}
                             onClick={onNext}
-                            size={18} className="text-gray-400 hover:text-[#100f1f] cursor-pointer"
-                        />
+                        >
+                            <ChevronRight
+                                size={18}
+                                className={`text-gray-400 ${count + 1 !== totalQuestions && !isBtnDisabled && 'hover:text-[#100f1f]'} cursor-pointer`}
+                            />
+                        </button>
                     </div>
                 </div>
                 <div className="flex gap-[15px] items-center pt-[10px]">
