@@ -41,11 +41,11 @@ export async function getCourseList(course, price) {
       path: "instructor",
       model: User,
     })
-    .populate({
-      path: "testimonials",
-      model: Testimonial,
-    })
-    .populate({
+    // .populate({
+    //   path: "testimonials",
+    //   model: Testimonial,
+    // })
+    .populate({ 
       path: "modules",
       model: Module,
     })
@@ -81,14 +81,14 @@ export async function getCourseDetails(id) {
       path: "instructor",
       model: User,
     })
-    .populate({
-      path: "testimonials",
-      model: Testimonial,
-      populate: {
-        path: "user",
-        model: User,
-      },
-    })
+    // .populate({
+    //   path: "testimonials",
+    //   model: Testimonial,
+    //   populate: {
+    //     path: "user",
+    //     model: User,
+    //   },
+    // })
     .populate({
       path: "quizSet",
       model: QuizSet,

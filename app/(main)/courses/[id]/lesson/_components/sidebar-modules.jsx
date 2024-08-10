@@ -36,8 +36,9 @@ const SidebarModules = ({ courseId, modules }) => {
                     className="border-0"
                     value={module.id}
                 >
-                    <AccordionTrigger>{module.title}</AccordionTrigger>
-
+                    <AccordionTrigger
+                        className="text-[#100f1f] text-left"
+                    >{module.title}</AccordionTrigger>
                     <SidebarLessons
                         courseId={courseId}
                         lessons={module.lessonIds}

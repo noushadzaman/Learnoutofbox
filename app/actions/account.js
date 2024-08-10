@@ -15,13 +15,11 @@ export async function updateUserInfo(email, updatedData) {
   }
 }
 
-export async function changePassword(email, oldPassword, newPassword) {
+export async function changePassword({ email, oldPassword, newPassword }) {
   const isMatch = await validatePassword(email, oldPassword);
-
   if (!isMatch) {
     throw new Error("Please enter a valid current password");
   }
-
   const filter = { email: email };
   const hashedPassword = await bcrypt.hash(newPassword, 5);
   const dataToUpdate = {

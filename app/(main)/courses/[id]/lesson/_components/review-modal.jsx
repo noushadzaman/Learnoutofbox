@@ -16,6 +16,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { doCreateReview } from "@/app/actions/testimonials";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { useState } from "react";
+
 const formSchema = z.object({
   rating: z.coerce
     .number()
@@ -25,30 +29,46 @@ const formSchema = z.object({
     .max(5, {
       message: "Rating can be 1 to 5",
     }),
-  review: z.string().min(1, {
-    message: "Description is required!",
+  content: z.string().min(1, {
+    message: "Review message is required!",
   }),
 });
-export const ReviewModal = ({ open, setOpen }) => {
+export const ReviewModal = ({ courseId, loggedInUserId, open, setOpen, testimonial }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      rating: "",
-      review: "",
+      rating: testimonial.length > 0 ? testimonial[0].rating : 0,
+      content: testimonial.length > 0 ? testimonial[0].content : '',
     },
   });
-
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (data) => {
     try {
+      const newReview = {
+        courseId,
+        user: loggedInUserId,
+        rating: data.rating,
+        content: data.content,
+      }
+      console.log(newReview);
+
+      await doCreateReview(newReview);
+
       toast.success("Review added");
       setOpen(false);
     } catch (error) {
       toast.error("Something went wrong");
     }
-    console.log(values);
   };
+
+  function stateChange(e, state) {
+    setTestimonialState({
+      ...testimonialState,
+      [state]: e.target.value
+    })
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {/* <DialogTrigger>Open</DialogTrigger> */}
@@ -58,6 +78,9 @@ export const ReviewModal = ({ open, setOpen }) => {
           e.preventDefault();
         }}
       >
+        <DialogTitle>
+          Testimonials
+        </DialogTitle>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -69,7 +92,7 @@ export const ReviewModal = ({ open, setOpen }) => {
               name="rating"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Course Title</FormLabel>
+                  <FormLabel>Course Rating</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
@@ -87,7 +110,7 @@ export const ReviewModal = ({ open, setOpen }) => {
             {/* review */}
             <FormField
               control={form.control}
-              name="review"
+              name="content"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Your Review</FormLabel>

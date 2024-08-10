@@ -40,8 +40,6 @@ export function SignupForm({ role }) {
                     userRole
                 })
             });
-            console.log(response);
-
             response.status === 201 && router.push("/login");
 
         } catch (e) {

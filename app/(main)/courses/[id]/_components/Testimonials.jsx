@@ -32,16 +32,16 @@ const Testimonials = ({ testimonials }) => {
                                 <div className="sm:break-inside-avoid">
                                     <blockquote className="rounded-lg bg-gray-50 p-6  sm:p-8 shadow-sm">
                                         <div className="flex items-center gap-4">
-                                            {/* <Image
+                                            <Image
                                                 alt=""
-                                                src={testimonial?.user?.profile_picture}
-                                                width={56}
-                                                height={56}
+                                                src={testimonial?.user?.profilePicture}
+                                                width={100}
+                                                height={100}
                                                 className="size-14 rounded-full object-cover"
-                                            /> */}
+                                            />
                                             <div>
                                                 <p className="mt-0.5 text-lg font-medium text-gray-900">
-                                                    {testimonial?.user?.first_name}{" "}{testimonial?.user?.last_name}
+                                                    {testimonial?.user?.firstName}{" "}{testimonial?.user?.lastName}
                                                 </p>
                                                 <div className="flex justify-center gap-0.5">
                                                     <StarRating

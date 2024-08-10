@@ -54,12 +54,12 @@ const courseSchema = new Schema({
     type: Schema.ObjectId,
     ref: "Quizset"
   },
-  testimonials: [
-    {
-      type: Schema.ObjectId,
-      ref: "Testimonial",
-    },
-  ],
+  // testimonials: [
+  //   {
+  //     type: Schema.ObjectId,
+  //     ref: "Testimonial",
+  //   },
+  // ],
   // {
   // required: false,
   // type: [Schema.ObjectId],

@@ -9,6 +9,12 @@ export async function getUserByEmail(email) {
   return replaceMongoIdInObject(user);
 }
 
+export async function getUserByEmailWithPass(email) {
+  await dbConnect();
+  const user = await User.findOne({ email: email }).lean();
+  return replaceMongoIdInObject(user);
+}
+
 export async function getUserDetails(userId) {
   await dbConnect();
   const user = await User.findById(userId).select("-password").lean();
@@ -17,7 +23,7 @@ export async function getUserDetails(userId) {
 
 export async function validatePassword(email, password) {
   await dbConnect();
-  const user = await getUserByEmail(email);
+  const user = await getUserByEmailWithPass(email);
   const isMatch = await bcrypt.compare(password, user.password);
   return isMatch;
 }

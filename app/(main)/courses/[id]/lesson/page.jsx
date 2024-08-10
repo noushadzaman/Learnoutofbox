@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-// import { VideoPlayer } from "./_components/video-player";
 import { Separator } from "@/components/ui/separator";
 import VideoDescription from "./_components/video-description";
 import { getCourseDetails } from "@/queries/courses";
@@ -18,26 +16,24 @@ const Course = async ({ params: { id }, searchParams: { name, module } }) => {
 	const lessonToPlay = name ? await getLessonBySlug(name) : defaultLesson;
 
 	return (
-		<div>
-			<div className="flex flex-col max-w-4xl mx-auto pb-20">
-				<div className="p-4 w-full">
-					<LessonVideo
-						courseId={id}
-						lesson={lessonToPlay}
-						module={defaultModule}
-					/>
+		<div className="flex flex-col max-w-4xl mx-auto pb-20">
+			<div className="w-[100%] px-2">
+				<LessonVideo
+					courseId={id}
+					lesson={lessonToPlay}
+					module={defaultModule}
+				/>
+			</div>
+			<div className="p-4 ">
+				<div className="flex flex-col md:flex-row items-center justify-between">
+					<h2 className="text-2xl font-semibold mb-2">
+						{lessonToPlay.title}
+					</h2>
 				</div>
-				<div>
-					<div className="p-4 flex flex-col md:flex-row items-center justify-between">
-						<h2 className="text-2xl font-semibold mb-2">
-							{lessonToPlay.title}
-						</h2>
-					</div>
-					<Separator />
-					<VideoDescription
-						description={lessonToPlay.description}
-					/>
-				</div>
+				<Separator />
+				<VideoDescription
+					description={lessonToPlay.description}
+				/>
 			</div>
 		</div>
 	);

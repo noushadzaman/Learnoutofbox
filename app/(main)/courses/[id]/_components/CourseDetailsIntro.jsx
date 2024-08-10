@@ -37,7 +37,7 @@ const CourseDetailsIntro = async ({ course }) => {
                                                 buttonVariants({ variant: "outline", size: "lg" })
                                             )}
                                         >Access course</Link>
-                                        : <EnrollCourse courseId={course?.id} />
+                                        : <EnrollCourse loggedInUser={loggedInUser} courseId={course?.id} />
                                 }
                                 <Link
                                     href=""

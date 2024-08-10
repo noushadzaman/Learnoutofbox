@@ -1,8 +1,9 @@
 import { getCourseDetailsByInstructor } from "@/queries/courses";
-import { Image, Presentation } from "lucide-react";
+import { Presentation } from "lucide-react";
 import { UsersRound } from "lucide-react";
 import { Star } from "lucide-react";
 import { MessageSquare } from "lucide-react";
+import Image from "next/image";
 
 
 const CourseInstructor = async ({ course }) => {
@@ -12,11 +13,11 @@ const CourseInstructor = async ({ course }) => {
 
     return (
         <div className="bg-gray-50 rounded-md p-8">
-            <div className="md:flex md:gap-x-5 mb-8">
+            <div className="md:flex md:gap-x-12 mb-8">
                 <div className="h-[310px] w-[270px] max-w-full  flex-none rounded mb-5 md:mb-0">
                     <Image
-                        height={50}
-                        width={50}
+                        height={500}
+                        width={500}
                         src={instructor?.profilePicture}
                         alt={instructor?.firstName}
                         className="w-full h-full object-cover rounded"

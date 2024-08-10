@@ -42,17 +42,17 @@ const EnrolledCourseCard = async ({ enrollment }) => {
     const totalMarks = marksFromQuizzes + otherMarks;
     
     return (
-        <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
+        <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full border-gray-200 px-[20px] py-[20px] cursor-pointer hover:scale-105 ease-linear duration-100 hover:border-gray-400 shadow-[#e1ecfe] shadow-lg ">
             <div className="relative w-full aspect-video rounded-md overflow-hidden">
                 <Image
-                    src={`/assets/images/courses/${enrollment?.course?.thumbnail}`}
+                    src={`${enrollment?.course?.thumbnail}`}
                     alt={enrollment?.course?.title}
                     className="object-cover"
                     fill
                 />
             </div>
             <div className="flex flex-col pt-2">
-                <div className="text-lg md:text-base font-medium group-hover:text-sky-700 line-clamp-2">
+                <div className="text-lg md:text-base font-medium group-hover:text-[#f58e87] line-clamp-2">
                     {enrollment?.course?.title}
                 </div>
                 <p className="text-xs text-muted-foreground">{courseCategory?.title}</p>
@@ -113,7 +113,7 @@ const EnrolledCourseCard = async ({ enrollment }) => {
                 <CourseProgress
                     size="sm"
                     value={totalProgress}
-                    variant={110 === 100 ? "success" : ""}
+                    variant={""}
                 />
             </div>
         </div>

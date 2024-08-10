@@ -7,12 +7,15 @@ import DownloadCertificate from "./download-certificate";
 import GiveReview from "./give-review";
 import { getReport } from "@/queries/reports";
 import Quiz from "./quiz";
+import { getTestimonialsForCourseAndUser } from "@/queries/testimonials";
 
-export const CourseSidebar = async ({ courseId }) => {
+export const CourseSidebar = async ({ courseId, loggedInUserId }) => {
   const course = await getCourseDetails(courseId);
   const loggedInUser = await getLoggedInUser();
 
   const report = await getReport({ course: courseId, student: loggedInUser.id });
+
+  const testimonial = await getTestimonialsForCourseAndUser(courseId, loggedInUserId);
 
   const totalCompletedModules = report?.totalCompletedModules ? report?.totalCompletedModules.length : 0;
   const totalModules = course?.modules ? course.modules.length : 0;
@@ -42,7 +45,7 @@ export const CourseSidebar = async ({ courseId }) => {
     <>
       <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
         <div className="p-8 flex flex-col border-b">
-          <h1 className="font-semibold">Reactive Accelerator</h1>
+          <h1 className="font-semibold text-center">{course?.title}</h1>
           <div className="mt-10">
             <CourseProgress variant="success" value={totalProgress} />
           </div>
@@ -57,7 +60,11 @@ export const CourseSidebar = async ({ courseId }) => {
         </div>
         <div className="w-full px-6">
           <DownloadCertificate courseTitle={course?.title} courseId={courseId} totalProgress={totalProgress} />
-          <GiveReview courseId={courseId} />
+          <GiveReview
+            courseId={courseId}
+            loggedInUserId={loggedInUserId}
+            testimonial={testimonial}
+          />
         </div>
       </div>
     </>

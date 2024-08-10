@@ -11,7 +11,7 @@ const SidebarLessonsItems = ({ courseId, lesson, singleModule }) => {
     const isCompleted = (lesson) => {
         return lesson?.state === 'completed';
     };
-
+    
     return (
         <>
             <Link
@@ -22,24 +22,24 @@ const SidebarLessonsItems = ({ courseId, lesson, singleModule }) => {
                 }
                 className={cn(
                     "flex items-center gap-x-2 text-slate-500 text-sm font-[500]  transition-all hover:text-slate-600 ",
-                    isPrivate(lesson) && "text-slate-700  hover:text-slate-700",
-                    isCompleted(lesson) && "text-emerald-700 hover:text-emerald-700"
+                    isPrivate(lesson) && "text-[#100f1f]",
+                    isCompleted(lesson) && "text-[#f58e87] hover:text-[#fe4a54]"
                 )}
             >
                 <div className="flex items-center gap-x-2">
                     {
                         isPrivate(lesson) ?
                             <Lock
-                                size={16}
-                                className={cn("text-slate-700")}
+                                size={18}
+                                className={cn("text-[#100f1f] shrink-0")}
                             />
                             : isCompleted(lesson) ?
                                 <CheckCircle
-                                    size={16}
-                                    className={cn("text-emerald-700")}
+                                    size={18}
+                                    className={cn("text-[#f58e87] shrink-0")}
                                 />
-                                : <PlayCircle size={16}
-                                    className={cn("text-slate-700")} />
+                                : <PlayCircle size={18}
+                                    className={cn("text-[#f58e87] shrink-0")} />
                     }
                     {lesson?.title}
                 </div>

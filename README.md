@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Image Title](./public/LearnOutOfBox%20Banner.png)
 
-## Getting Started
+# [LearnOutOfBox](#https://learnoutofbox.vercel.app)
 
-First, run the development server:
+## Instructor features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- <strong>Add</strong> a course, module, or lessons, <strong>delete</strong> a course, module, or lessons, <strong>publish or hide</strong> a course, module, or lessons.
+- <strong>Update course data individually</strong> and independently.
+- <strong>Drag an drop to reorder</strong> modules and lessons as suitable.
+- <strong>Add quizzes</strong> on the course for student to test their learning progress.
+- See created <strong>courses by filtering or searching</strong> them or see more details of the course.
+  - <small>Review details.</small>
+  - <small>Enrollment details.</small>
+- <strong>Add</strong> a assessment, <strong>delete</strong> a assessment, <strong>update</strong> a assessment, <strong>publish or hide</strong> a assessment.
+- See created <strong>assessments by filtering or searching</strong> them.
+- Analyze <strong>revenue and other information.</strong>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Student features:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Specific route to see <strong>enrolled courses and their progress</strong>.
+  - <small>Course modules & completed modules</small>
+  - <small>Course Quizzes & taken taken</small>
+  - <small>Marks</small>
+  - <small>Progress bar</small>
+- Enjoy Course contents in <strong>structured modules and lessons</strong> keeping track of the progress.
+- Different sections to comment on or <strong>ask questions in specific lessons</strong>.
+- <strong>Participate on course quizzes</strong> to test your learning from the course.
+- After completing the course get a chance to <strong>download the certificate</strong> and <strong>review the course</strong>.
+- <strong>Take skill assessments</strong> in different topics to analyze and increase your ability on that topic.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Common features:
 
-## Learn More
+- Register or login as instructor or student.
+- Update personal information including password and profile picture.
+- See courses filter them, search them.
+- See courses details.
+  - <small>Course overview.</small>
+  - <small>Course curriculum details.</small>
+  - <small>Instructor details.</small>
+- See courses Testimonials.
 
-To learn more about Next.js, take a look at the following resources:
+### Technologies used:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Tailwind CSS, Next.js, ShadCN, Next-Auth, Strip, React-hook-form, TanStack-table, Zod, Resend, MongoDB, Mongoose.

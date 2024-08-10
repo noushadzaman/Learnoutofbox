@@ -64,7 +64,10 @@ const Success = async ({ searchParams: { session_id, courseId } }) => {
                     paymentStatus === "succeeded" && <>
                         <CircleCheck className="w-32 h-32 bg-[#90d790] rounded-full p-0  text-white" />
                         <h1 className="text-xl md:text-2xl lg:text-3xl">
-                            Congratulations! <strong>{customerName}</strong> Your Enrollment was Successful for <strong>{productName}</strong>
+                            <strong>Congratulations!</strong>
+                        </h1>
+                        <h1 className="text-xl md:text-2xl lg:text-3xl text-center">
+                            {customerName.toUpperCase()} Your Enrollment was Successful for {productName}
                         </h1>
                     </>
                 }

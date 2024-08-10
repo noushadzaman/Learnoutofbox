@@ -4,9 +4,13 @@ import { ArrowRight } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { createCheckoutSession } from "@/app/actions/stripe";
+import { redirect } from "next/navigation";
 
-const EnrollCourse = ({ asLink, courseId }) => {
+const EnrollCourse = ({ asLink, courseId, loggedInUser }) => {
     const formAction = async (data) => {
+        if (!loggedInUser) {
+            redirect('/login');
+        }
         const { url } = await createCheckoutSession(data);
         window.location.assign(url);
     }

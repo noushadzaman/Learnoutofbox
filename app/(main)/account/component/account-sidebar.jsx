@@ -10,7 +10,6 @@ const AccountSidebar = async () => {
         redirect("/login");
     }
     const loggedInUser = await getUserByEmail(session?.user?.email);
-    console.log(loggedInUser);
 
     return (
         <div className="lg:w-1/4 md:px-3">
@@ -23,7 +22,7 @@ const AccountSidebar = async () => {
                                 <h5 className="text-lg font-semibold">
                                     {`${loggedInUser?.firstName} ${loggedInUser?.lastName}`}
                                 </h5>
-                                <p className="text-slate-400">
+                                <p className="text-slate-400 break-words">
                                     {loggedInUser?.email}
                                 </p>
                             </div>

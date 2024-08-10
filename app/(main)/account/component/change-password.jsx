@@ -4,10 +4,12 @@ import { changePassword } from "@/app/actions/account";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const ChangePassword = ({ email }) => {
+    const router = useRouter();
     const [passwordState, setPasswordState] = useState({
         oldPassword: "",
         newPassword: "",
@@ -27,8 +29,13 @@ const ChangePassword = ({ email }) => {
             return;
         }
         try {
-            await changePassword(email, passwordState?.oldPassword, passwordState?.newPassword)
-            toast.success(`Password changed successfully.`)
+            await changePassword({
+                email,
+                oldPassword: passwordState?.oldPassword,
+                newPassword: passwordState?.newPassword
+            })
+            toast.success(`Password changed successfully.`);
+            router.refresh();
         }
         catch (error) {
             toast.error(`Error: ${error.message}`)

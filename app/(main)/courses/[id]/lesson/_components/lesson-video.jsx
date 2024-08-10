@@ -35,11 +35,12 @@ const LessonVideo = ({ courseId, lesson, module }) => {
             })
             if (response.status === 200) {
                 const result = await response.text();
-                console.log(result);
                 setStarted(true);
             }
         }
-        started && updateLessonWatch();
+        if (started) {
+            updateLessonWatch();
+        }
     }, [started]);
 
     useEffect(() => {
@@ -59,12 +60,14 @@ const LessonVideo = ({ courseId, lesson, module }) => {
             })
             if (response.status === 200) {
                 const result = await response.text();
-                console.log(result);
                 setEnded(true);
                 router.refresh();
             }
         }
-        ended && updateLessonWatch();
+        if (ended) {
+            updateLessonWatch();
+            setStarted(false);
+        }
     }, [ended]);
 
     function handleOnStart() {
