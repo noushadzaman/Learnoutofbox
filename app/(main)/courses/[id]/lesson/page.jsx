@@ -4,6 +4,8 @@ import { getCourseDetails } from "@/queries/courses";
 import { replaceMongoIdInArray, replaceMongoIdInObject } from "@/lib/convertData";
 import { getLessonBySlug } from "@/queries/lesson";
 import LessonVideo from "./_components/lesson-video";
+import { getLoggedInUser } from "@/lib/loggedin-user";
+import { getComments } from "@/queries/comments";
 
 const Course = async ({ params: { id }, searchParams: { name, module } }) => {
 	const course = await getCourseDetails(id);
@@ -14,6 +16,8 @@ const Course = async ({ params: { id }, searchParams: { name, module } }) => {
 	const defaultModule = module ?? allModules[0].slug;
 
 	const lessonToPlay = name ? await getLessonBySlug(name) : defaultLesson;
+	const loggedInUser = await getLoggedInUser();
+	const comments = await getComments(lessonToPlay?.id);
 
 	return (
 		<div className="flex flex-col max-w-4xl mx-auto pb-20">
@@ -32,7 +36,11 @@ const Course = async ({ params: { id }, searchParams: { name, module } }) => {
 				</div>
 				<Separator />
 				<VideoDescription
+					lessonId={lessonToPlay?.id}
+					loggedInUserId={loggedInUser?.id}
+					loggedInUser={loggedInUser}
 					description={lessonToPlay.description}
+					comments={comments}
 				/>
 			</div>
 		</div>

@@ -19,14 +19,12 @@ export async function getTestimonialsForCourse(courseId) {
 }
 
 export async function getTestimonialsForCourseAndUser(courseId, userId) {
-  console.log(courseId, userId);
   try {
     await dbConnect();
     const testimonial = await Testimonial.find({
       courseId: courseId,
       user: userId,
     }).lean();
-    console.log(testimonial);
 
     return replaceMongoIdInArray(testimonial);
   } catch (error) {

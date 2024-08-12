@@ -1,18 +1,18 @@
 ![Image Title](./public/LearnOutOfBox%20Banner.png)
 
-# [LearnOutOfBox](#https://learnoutofbox.vercel.app)
+# [LearnOutOfBox](https://learnoutofbox.vercel.app)
 
 ## Instructor features:
 
-- <strong>Add</strong> a course, module, or lessons, <strong>delete</strong> a course, module, or lessons, <strong>publish or hide</strong> a course, module, or lessons.
+- <strong>Add</strong> courses, modules, or lessons, <strong>delete</strong> courses, modules, or lessons, <strong>publish or hide</strong> courses, modules, or lessons.
 - <strong>Update course data individually</strong> and independently.
 - <strong>Drag an drop to reorder</strong> modules and lessons as suitable.
 - <strong>Add quizzes</strong> on the course for student to test their learning progress.
 - See created <strong>courses by filtering or searching</strong> them or see more details of the course.
   - <small>Review details.</small>
   - <small>Enrollment details.</small>
-- <strong>Add</strong> a assessment, <strong>delete</strong> a assessment, <strong>update</strong> a assessment, <strong>publish or hide</strong> a assessment.
 - See created <strong>assessments by filtering or searching</strong> them.
+- <strong>Add</strong> a assessment, <strong>delete</strong> a assessment, <strong>update</strong> a assessment, <strong>publish or hide</strong> a assessment.
 - Analyze <strong>revenue and other information.</strong>
 
 ## Student features:
@@ -36,8 +36,10 @@
 - See courses details.
   - <small>Course overview.</small>
   - <small>Course curriculum details.</small>
-  - <small>Instructor details.</small>
-- See courses Testimonials.
+  - <small>Course instructor details.</small>
+  - <small>Courses Testimonials.</small>
+- Notify Instructor and student separately via Email on course enrollment.
+
 
 ### Technologies used:
 
