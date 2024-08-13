@@ -14,18 +14,17 @@ const CourseDetails = ({ course }) => {
         <span className="bg-success px-4 py-0.5 rounded-[5px] text-xs font-medium inline-block bg-[#f68d89]">
           {course?.category?.title}
         </span>
-        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold 2xl:text-5xl mt-3">
-          {course?.title}
-        </h3>
-        <p className="mt-3 text-gray-600 text-sm">
-          {course?.subtitle}
+        <p className="mt-2 text-xl font-bold leading-tight text-gray-900 sm:leading-tight sm:text-2xl lg:text-3xl lg:leading-tight font-pj">
+          <span className="relative inline-flex sm:inline">
+            <span className="bg-gradient-to-r from-[#f68d89] to-[#9ab3db] blur-lg filter opacity-50 w-full h-full absolute inset-0"></span>
+            <span className="relative text-2xl md:text-3xl lg:text-4xl font-bold 2xl:text-5xl mt-3">{course?.title}</span>
+          </span>
         </p>
-        {/*  */}
         <div className="flex sm:items-center gap-5 flex-col sm:flex-row sm:gap-6 md:gap-20 mt-6">
           <div className="flex items-center gap-2">
             <Image
-              height={20}
-              width={20}
+              height={100}
+              width={100}
               className="w-[40px] h-[40px] rounded-full"
               src={course?.instructor?.profilePicture}
               alt={course?.instructor?.firstName}

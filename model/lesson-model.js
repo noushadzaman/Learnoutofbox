@@ -32,6 +32,11 @@ const lessonSchema = new Schema({
     default: "private",
     type: String,
   },
+  isDemo: {
+    required: true,
+    default: false,
+    type: String,
+  },
   order: {
     required: true,
     type: Number,

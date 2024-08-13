@@ -37,11 +37,9 @@ export async function GET(request) {
       course: courseId,
       student: loggedInUser.id,
     });
-    console.log(report?.completion_date);
     const completionDate = report?.completion_date
       ? formatMyDate(report?.completion_date)
       : formatMyDate(Date.now());
-    console.log(completionDate);
 
     const completionInfo = {
       name: `${loggedInUser?.firstName} ${loggedInUser?.lastName}`,
@@ -107,7 +105,7 @@ export async function GET(request) {
      * Name Label
      *
      *-------------------*/
-    const nameLabelText = "This certificate is hereby bestowed upon";
+    const nameLabelText = `This certificate is hereby bestowed upon`;
 
     const nameLabelFontSize = 20;
     // title text width
@@ -237,6 +235,6 @@ export async function GET(request) {
       headers: { "content-type": "application/pdf" },
     });
   } catch (error) {
-    console.log(error);
+    return new Response("Internal Server Error", { status: 500 });
   }
 }

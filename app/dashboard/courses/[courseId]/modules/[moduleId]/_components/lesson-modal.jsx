@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, View } from "lucide-react";
 import { Eye } from "lucide-react";
 import { Video } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
@@ -17,6 +17,7 @@ import { LessonDescriptionForm } from "./lesson-description-form";
 import { LessonAccessForm } from "./lesson-access-form";
 import { VideoUrlForm } from "./video-url-form";
 import { LessonsActions } from "./lesson-action";
+import { AccessAsDemoForm } from "./access-demo-form";
 
 export const LessonModal = ({ open, setOpen, courseId, lesson, moduleId, onclose }) => {
   function postDelete() {
@@ -83,18 +84,31 @@ export const LessonModal = ({ open, setOpen, courseId, lesson, moduleId, onclose
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-x-2">
-                <IconBadge icon={Video} />
-                <h2 className="text-xl">Add a video</h2>
+              <div className="mb-5">
+                <div className="flex items-center gap-x-2">
+                  <IconBadge icon={View} />
+                  <h2 className="text-xl">Access as demo</h2>
+                </div>
+                <AccessAsDemoForm
+                  initialData={{ isDemo: lesson?.isDemo }}
+                  courseId={courseId}
+                  lessonId={lesson?.id}
+                />
               </div>
-              <VideoUrlForm
-                initialData={{
-                  url: lesson?.video_url,
-                  duration: lesson?.duration
-                }}
-                courseId={courseId}
-                lessonId={lesson?.id}
-              />
+              <div>
+                <div className="flex items-center gap-x-2">
+                  <IconBadge icon={Video} />
+                  <h2 className="text-xl">Add a video</h2>
+                </div>
+                <VideoUrlForm
+                  initialData={{
+                    url: lesson?.video_url,
+                    duration: lesson?.duration
+                  }}
+                  courseId={courseId}
+                  lessonId={lesson?.id}
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -45,7 +45,7 @@ export async function getCourseList(course, price) {
     //   path: "testimonials",
     //   model: Testimonial,
     // })
-    .populate({ 
+    .populate({
       path: "modules",
       model: Module,
     })
@@ -215,4 +215,26 @@ export async function getCourseDetailsForCard(id) {
     .lean();
 
   return replaceMongoIdInObject(course);
+}
+
+export async function getCourseDemoVideos(courseId) {
+  const course = await Course.findById(courseId).select(["modules"]).lean();
+
+  const lessons = await Promise.all(
+    course?.modules.map(async (courseModule) => {
+      const modules = await Module.findById(courseModule).lean();
+
+      const moduleLessons = await Promise.all(
+        modules?.lessonIds.map(async (singleLesson) => {
+          const lesson = await Lesson.findOne({
+            $and: [{ _id: singleLesson }, { isDemo: true }],
+          }).lean();
+
+          return lesson || null;
+        })
+      );
+      return moduleLessons.filter(Boolean);
+    })
+  );
+  return replaceMongoIdInArray(lessons.flat());
 }

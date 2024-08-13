@@ -6,52 +6,25 @@ import EnrollCourse from "@/components/enroll-course";
 import { auth } from "@/auth";
 import { getUserByEmail } from "@/queries/users";
 import { hasEnrollmentForCourse } from "@/queries/enrollment";
+import { Button } from "@/components/ui/button"
+import {
+    Dialog,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import Demos from "./demos";
+import { SquarePlay } from "lucide-react";
 
-const CourseDetailsIntro = async ({ course }) => {
+const CourseDetailsIntro = async ({ course, demoVideos }) => {
     const { title, subtitle, thumbnail } = course;
     const session = await auth();
     const loggedInUser = await getUserByEmail(session?.user?.email);
-    const hasEnrollment = await hasEnrollmentForCourse(course?.id, loggedInUser?.id)
+    const hasEnrollment = await hasEnrollmentForCourse(course?.id, loggedInUser?.id);
 
     return (
         <div className="overflow-x-hidden  grainy">
             <section className="pt-12  sm:pt-16">
                 <div className="container">
-                    <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        <div className="max-w-2xl mx-auto text-center">
-                            <h1 className="px-6 text-lg text-gray-600 font-inter">
-                                {subtitle}
-                            </h1>
-                            <p className="mt-5 text-4xl font-bold leading-tight text-gray-900 sm:leading-tight sm:text-5xl lg:text-6xl lg:leading-tight font-pj">
-                                <span className="relative inline-flex sm:inline">
-                                    <span className="bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] blur-lg filter opacity-30 w-full h-full absolute inset-0"></span>
-                                    <span className="relative">{title} </span>
-                                </span>
-                            </p>
-
-                            <div className="mt-6 flex items-center justify-center flex-wrap gap-3">
-                                {
-                                    hasEnrollment
-                                        ? <Link href={`/courses/${course?.id}/lesson`}
-                                            className={cn(
-                                                buttonVariants({ variant: "outline", size: "lg" })
-                                            )}
-                                        >Access course</Link>
-                                        : <EnrollCourse loggedInUser={loggedInUser} courseId={course?.id} />
-                                }
-                                <Link
-                                    href=""
-                                    className={cn(
-                                        buttonVariants({ variant: "outline", size: "lg" })
-                                    )}
-                                >
-                                    See Intro
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="pb-12  mt-6">
+                    <div className="pb-12 mt-6">
                         <div className="relative">
                             <div className="absolute inset-0 h-2/3"></div>
                             <div className="relative mx-auto">
@@ -64,6 +37,33 @@ const CourseDetailsIntro = async ({ course }) => {
                                         alt=""
                                     />
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                        <div className="max-w-2xl mx-auto text-center">
+                            <div className="flex items-center justify-center flex-wrap gap-3">
+                                {
+                                    hasEnrollment
+                                        ? <Link href={`/courses/${course?.id}/lesson`}
+                                            className={cn(
+                                                buttonVariants({ variant: "outline", size: "lg" })
+                                            )}
+                                        >Access course</Link>
+                                        : <EnrollCourse loggedInUser={loggedInUser} courseId={course?.id} />
+                                }
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <Button
+                                            className={cn(
+                                                buttonVariants({ variant: "outline", size: "lg" })
+                                            )}
+                                            variant="outline">
+                                            <SquarePlay className="mr-2" />
+                                            See demo videos</Button>
+                                    </DialogTrigger>
+                                    <Demos demoVideos={demoVideos} />
+                                </Dialog>
                             </div>
                         </div>
                     </div>
