@@ -1,4 +1,4 @@
-import { getReviews } from "@/queries/reviews";
+import { getReviews } from "@/queries/home";
 import Introductions from "./introductions";
 import { TestimonialCarousel } from "./testimonial-carousel";
 
@@ -11,7 +11,7 @@ const HomeTestimonials = async () => {
                 <Introductions
                     title={'TESTIMONIALS'}
                     subtitle={'Our Learners Feedback'}
-                    description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                    description={'Hear from our learners about their experiences and how our courses have helped them achieve their goals. Discover how our platform has made a difference in their educational journey and career growth.'}
                     align={'center'}
                     size={'half'}
                 />

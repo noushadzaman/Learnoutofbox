@@ -15,7 +15,6 @@ const CourseCurriculum = ({ course }) => {
     }, 0);
     const orderedCourse = course?.modules.sort((a, b) => a.order - b.order);
 
-
     return (
         <>
             <div className="flex gap-x-5 items-center justify-center flex-wrap mt-4 mb-6 text-gray-600 text-sm">
@@ -25,11 +24,11 @@ const CourseCurriculum = ({ course }) => {
                 </span>
                 <span className="flex items-center gap-1.5">
                     <Clock10 className="w-4 h-4" />
-                    {(totalDuration / 3660).toPrecision(2)} Hours
+                    {(totalDuration / 3660).toFixed(2)} Hours
                 </span>
             </div>
             <Accordion
-                defaultValue={["item-1", "item-2", "item-3"]}
+                defaultValue={[]}
                 type="single"
                 collapsible
                 className="w-full"

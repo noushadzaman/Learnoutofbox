@@ -4,6 +4,7 @@ import Brain from '../../public/assets/brain-logo.png';
 import Test from '../../public/test-logo.png';
 import Certificate from '../../public/certificate-logo.png';
 import Introductions from "./introductions";
+import Link from "next/link";
 
 const Features = () => {
     return (
@@ -12,12 +13,12 @@ const Features = () => {
                 <Introductions
                     title={'EDUCATION FOR EVERYONE'}
                     subtitle={'Online Coaching Lessons For Remote Learning'}
-                    description={'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
+                    description={"Learn from anywhere with our expert-led online courses, designed to make quality education accessible to all. Join a global community of learners and advance your knowledge from the comfort of your home."}
                     size={'half'}
                     align={'center'}
                 />
                 <div className="flex justify-center items-center gap-[25px] flex-col md:flex-row pt-[55px]">
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[300px]">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Brain}
@@ -26,7 +27,7 @@ const Features = () => {
                             width={500}
                         />
                         <h3 className="font-[800] text-[22px] text-[#00030e] ">Learn from Industry Experts</h3>
-                        <p className="text-[16px] text-[#606060]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                        <p className="text-[16px] text-[#606060]">Gain practical insights and knowledge directly from top professionals in the field.</p>
                         <Button
                             type="submit"
                             variant="secondary"
@@ -35,7 +36,7 @@ const Features = () => {
                             Start Now!
                         </Button>
                     </div>
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[300px]">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Test}
@@ -44,16 +45,20 @@ const Features = () => {
                             width={500}
                         />
                         <h3 className="font-[800] text-[22px] text-[#00030e] ">Test your skills like a pro</h3>
-                        <p className="text-[16px] text-[#606060]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            className="text-sm text-[#ff4955] h-7 gap-1"
+                        <p className="text-[16px] text-[#606060]">Challenge yourself with real-world scenarios to sharpen your expertise.</p>
+
+                        <Link
+                            href={`/questions`}
                         >
-                            Start Now!
-                        </Button>
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                className="text-sm text-[#ff4955] h-7 gap-1">
+                                Start Now!
+                            </Button>
+                        </Link>
                     </div>
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[300px]">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Certificate}
@@ -62,7 +67,7 @@ const Features = () => {
                             width={500}
                         />
                         <h3 className="font-[800] text-[22px] text-[#00030e]">Get certification</h3>
-                        <p className="text-[16px] text-[#606060]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                        <p className="text-[16px] text-[#606060]">Earn recognized credentials that validate your skills and enhance your career prospects.</p>
                         <Button
                             type="submit"
                             variant="secondary"

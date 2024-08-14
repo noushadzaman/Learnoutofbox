@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Introductions from "./introductions";
 import CourseCard from "./popular-course-card";
-import { getMostPopularCourse } from "@/queries/courses";
+import { getMostPopularCourses } from "@/queries/home";
 
 const PopularCourses = async () => {
-    const popularCourses = await getMostPopularCourse();
+    const popularCourses = await getMostPopularCourses();
 
     return (
         <section className="py-[100px] max-w-[1250px] mx-auto">

@@ -27,8 +27,8 @@ const BannerTwo = ({ title, subtitle, btn }) => {
                 <div className="flex md:max-w-[50%] md:pl-[80px] lg:pl-[110px] xl:pl-[180px]  xxl:pl-[250px] md:items-start flex-col gap-4">
                     <Introductions
                         title={"DISTANCE LEARNING"}
-                        subtitle={ "Develop Your Skills, Learn Something New, and Grow Your Skills From Anywhere in the World!"}
-                        description={ "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+                        subtitle={ "Develop new skills and grow from anywhere in the world!"}
+                        description={ "Unlock your potential with our flexible distance learning platform. Enhance your skills, explore new knowledge, and advance your career at your own pace, from anywhere. With practical courses and expert guidance, achieve your goals without the limits of traditional classrooms. Start your journey to success today."}
                         align={'left'}
                         size={'full'}
                     />

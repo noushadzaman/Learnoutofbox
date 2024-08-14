@@ -24,9 +24,9 @@ const CourseLayout = async ({ children, params: { id } }) => {
           {/* <NavbarRoutes /> */}
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-12 mx-auto">
-        <main className="w-full pt-[80px] lg:pt-[20px] col-span-9 xl:col-span-8 h-full">{children}</main>
-        <div className="hidden lg:flex h-full w-full col-span-3 xl:col-span-4 flex-col inset-y-0 z-50">
+      <div className="grid grid-cols-1 lg:grid-cols-12 mx-auto xl:min-w-[1300px]">
+        <main className="w-full pt-[80px] lg:pt-[20px] col-span-9 xl:col-span-9 h-full">{children}</main>
+        <div className="hidden lg:flex h-full w-full col-span-3 xl:col-span-3 flex-col inset-y-0 z-50">
           {/* sidebar starts */}
           <CourseSidebar courseId={id} loggedInUserId={loggedInUser?.id} />
           {/* sidebar ends */}

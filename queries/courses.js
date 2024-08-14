@@ -6,7 +6,6 @@ import {
 import { Category } from "@/model/category-model";
 import { Course } from "@/model/course-model";
 import { Module } from "@/model/module-model";
-import { Testimonial } from "@/model/testimonial-model";
 import { User } from "@/model/user-model";
 import { getEnrollmentsForCourse } from "./enrollment";
 import { getTestimonialsForCourse } from "./testimonials";
@@ -169,28 +168,6 @@ export async function create(courseData) {
   }
 }
 
-export async function getMostPopularCourse() {
-  try {
-    const result = await Enrollment.aggregate([
-      {
-        $group: {
-          _id: "$course",
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $sort: { count: -1 },
-      },
-      {
-        $limit: 3,
-      },
-    ]);
-    return replaceMongoIdInArray(result);
-  } catch (error) {
-    console.error("Error fetching top three courses:", error);
-  }
-}
-
 export async function getCourseDetailsForCard(id) {
   await dbConnect();
   const course = await Course.findById(id)
@@ -218,6 +195,7 @@ export async function getCourseDetailsForCard(id) {
 }
 
 export async function getCourseDemoVideos(courseId) {
+  await dbConnect();
   const course = await Course.findById(courseId).select(["modules"]).lean();
 
   const lessons = await Promise.all(
