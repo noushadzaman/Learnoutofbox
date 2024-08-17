@@ -1,19 +1,15 @@
 import mongoose, { Schema } from "mongoose";
 
 const questionSchema = new Schema({
-  id: {
-    type: Number,
-    required: true,
-  },
   question: {
     type: String,
     required: true,
   },
-  topic: {
+  answer: {
     type: String,
     required: true,
   },
-  answer: {
+  topic: {
     type: String,
     required: true,
   },
@@ -23,25 +19,5 @@ const questionSchema = new Schema({
   },
 });
 
-const testSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  slug: {
-    type: String,
-    required: true,
-  },
-  creator: {
-    type: String,
-    require: true,
-  },
-  active: {
-    type: Boolean,
-    default: false,
-    require: true,
-  },
-  questions: [questionSchema],
-});
-
-export const Test = mongoose.models.Test ?? mongoose.model("Test", testSchema);
+export const Test =
+  mongoose.models.Test ?? mongoose.model("Test", questionSchema);

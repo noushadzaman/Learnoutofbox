@@ -15,6 +15,20 @@
 
 This LMS application is a comprehensive platform designed to enhance the educational experience for both instructors and students. It provides a robust set of features tailored to the needs of each user, ensuring a seamless and effective teaching and learning process.
 
+## ⚙️ Tech Stack
+
+- Tailwind CSS
+- Next.js
+- ShadCN
+- Next-Auth
+- Strip
+- React Hook Form
+- TanStack-table
+- Zod
+- Resend
+- MongoDB
+- Mongoose
+
 ## 🧑🏻‍🏫 Instructor features:
 
 - <strong>Add, delete, publish or hide</strong> courses, modules, or lessons individually.
@@ -23,7 +37,7 @@ This LMS application is a comprehensive platform designed to enhance the educati
 - <strong>Add quizzes</strong> on the course for student to test their learning progress.
 - Inspect created <strong>courses by filtering or searching</strong> them or see more details of the course.
   - <small>Review details.</small>
-  - <small>Enrollment details.</small> 
+  - <small>Enrollment details.</small>
     - <small>Search enrolled user.</small>
     - <small>filter enrolled user.</small>
 - See created <strong>assessments by filtering or searching</strong> them.
@@ -45,26 +59,12 @@ This LMS application is a comprehensive platform designed to enhance the educati
 
 ## 👨🏻‍💻 Common features:
 
-- Register or login as instructor or student.
-- Update personal information including password and profile picture.
-- See courses filter them, search them.
+- <strong>Register or login</strong> as instructor or student.
+- <strong>Update personal information</strong> including password and profile picture.
+- Courses page with <strong>filtering, searching and pagination</strong> option.
 - See courses details.
   - <small>Course overview.</small>
   - <small>Course curriculum details.</small>
   - <small>Course instructor details.</small>
   - <small>Courses Testimonials.</small>
-- Notify Instructor and student separately via Email on course enrollment.
-
-## ⚙️ Tech Stack
-
-- Tailwind CSS
-- Next.js
-- ShadCN
-- Next-Auth
-- Strip
-- React Hook Form
-- TanStack-table
-- Zod
-- Resend
-- MongoDB
-- Mongoose
+- Instructor and student gets <strong>Notification via Email</strong> on course enrollment separately.

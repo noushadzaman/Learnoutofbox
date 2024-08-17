@@ -18,9 +18,7 @@ const page = async ({ params: { title } }) => {
       <Introductions
         title={"Test"}
         subtitle={`${test?.title} Questions`}
-        description={
-          `Test, rate and improve your ${test?.title} knowledge with these questions.`
-        }
+        description={`Test, rate and improve your ${test?.title} knowledge with these questions.`}
         size={"half"}
         align={"center"}
       />

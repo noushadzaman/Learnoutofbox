@@ -34,9 +34,11 @@ export const AccessAsDemoForm = ({ initialData, courseId, lessonId }) => {
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            isFree: !!free,
+            isFree: free,
         },
     });
+    console.log(free);
+
 
     const { isSubmitting, isValid } = form.formState;
 
@@ -80,11 +82,11 @@ export const AccessAsDemoForm = ({ initialData, courseId, lessonId }) => {
                         !free && "text-slate-500 italic"
                     )}
                 >
-                    {free ? (
-                        <>This chapter is demo</>
-                    ) : (
-                        <>This chapter is not demo</>
-                    )}
+                    {
+                        free ?
+                            <p>This chapter is demo</p>
+                            : <p>This chapter is not demo</p>
+                    }
                 </p>
             )}
             {isEditing && (

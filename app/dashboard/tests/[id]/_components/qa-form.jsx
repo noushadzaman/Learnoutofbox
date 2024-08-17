@@ -11,12 +11,12 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
-import { updateTestQuestion } from "@/app/actions/test";
+import { deleteTestQuestion, updateTestQuestion } from "@/app/actions/test";
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
@@ -34,7 +34,7 @@ const formSchema = z.object({
     }),
 });
 
-export const QAForm = ({ initialData = {}, testId }) => {
+export const QAForm = ({ initialData = {}, testId, testSetId }) => {
     const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
     const toggleEdit = () => setIsEditing((current) => !current);
@@ -50,7 +50,16 @@ export const QAForm = ({ initialData = {}, testId }) => {
             toggleEdit();
             router.refresh();
             toast.success("Test has been updated");
+        } catch (error) {
+            toast.error("Something went wrong");
+        }
+    };
 
+    const deleteQuestion = async () => {
+        try {
+            await deleteTestQuestion(testSetId, testId);
+            router.refresh();
+            toast.success("Test has been deleted");
         } catch (error) {
             toast.error("Something went wrong");
         }
@@ -72,12 +81,17 @@ export const QAForm = ({ initialData = {}, testId }) => {
                 </Button>
             </div>
             {!isEditing &&
-                <>
-                    <p className="text-sm mt-2">Q: {initialData.question}</p>
-                    <p className="text-sm mt-2">A: {initialData.answer}</p>
-                    <p className="text-sm mt-2">Topic: {initialData.topic}</p>
-                    <p className="text-sm mt-2">Difficulty: {initialData.difficulty}</p>
-                </>
+                <div className="flex items-end justify-between">
+                    <div>
+                        <p className="text-sm mt-2">Q: {initialData.question}</p>
+                        <p className="text-sm mt-2">A: {initialData.answer}</p>
+                        <p className="text-sm mt-2">Topic: {initialData.topic}</p>
+                        <p className="text-sm mt-2">Difficulty: {initialData.difficulty}</p>
+                    </div>
+                    <Button variant="ghost" onClick={deleteQuestion}>
+                        <Trash size={16} className="mr-2" /> Delete Question
+                    </Button>
+                </div>
             }
             {isEditing && (
                 <Form {...form}>

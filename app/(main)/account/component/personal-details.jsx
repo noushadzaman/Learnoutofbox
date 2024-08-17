@@ -107,6 +107,7 @@ const PersonalDetails = ({ userInfo }) => {
                             placeholder="Message :"
                             value={infoState.bio}
                             onChange={handleChange}
+                            className="min-h-[150px]"
                         />
                     </div>
                 </div>

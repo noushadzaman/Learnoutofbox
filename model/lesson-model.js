@@ -35,7 +35,7 @@ const lessonSchema = new Schema({
   isDemo: {
     required: true,
     default: false,
-    type: String,
+    type: Boolean,
   },
   order: {
     required: true,

@@ -13,7 +13,7 @@ export function SiteFooter({ className }) {
         <div className="card">
 
           <div className="flex flex-col md:flex-row py-[180px] px-[70px] gap-5 md:gap-3  justify-between">
-            <div className="flex flex-col md:w-[40%] gap-[20px]">
+            <div className="flex flex-col md:w-[40%] gap-[20px] z-50">
               <div className="flex items-center gap-4">
                 <Logo />
                 <p className="font-[800] text-[24px]">Learnoutofbox</p>
@@ -56,7 +56,7 @@ export function SiteFooter({ className }) {
               <p>Roadmap.sh</p>
               <p>Reddit</p>
             </div>
-            <div className="flex flex-col md:w-[20%] gap-[15px]">
+            <div className="flex flex-col md:w-[20%] gap-[15px] z-50">
               <h3 className="font-[800] text-[24px]">Address</h3>
               <p>Azimpur Dhaka, Bangladesh.</p>
               <p>1205</p>

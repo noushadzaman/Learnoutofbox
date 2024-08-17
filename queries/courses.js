@@ -15,14 +15,32 @@ import { Quiz } from "@/model/quizzes-model";
 import { dbConnect } from "@/service/mongo";
 import { Enrollment } from "@/model/enrollment-model";
 
-export async function getCourseList(course, price) {
+export async function getCourseCount(categoryId) {
+  await dbConnect();
+  let query;
+  if (categoryId) {
+    query = { category: categoryId };
+  }
+  const count = await Course.countDocuments(query);
+  return count;
+}
+
+export async function getCourseList(categoryId, page, course, price) {
   await dbConnect();
   const regex = new RegExp(course, "i");
   const sort = {};
   if (price !== undefined) {
     sort.price = price;
   }
-  const courses = await Course.find({ active: true, title: { $regex: regex } })
+  const category = {};
+  if (categoryId) {
+    category.category = categoryId;
+  }
+  const courses = await Course.find({
+    active: true,
+    title: { $regex: regex },
+    ...category,
+  })
     .select([
       "title",
       "subtitle",
@@ -40,15 +58,13 @@ export async function getCourseList(course, price) {
       path: "instructor",
       model: User,
     })
-    // .populate({
-    //   path: "testimonials",
-    //   model: Testimonial,
-    // })
     .populate({
       path: "modules",
       model: Module,
     })
     .sort(sort)
+    .limit(9)
+    .skip(Number(page - 1) * 9)
     .lean();
 
   const coursesWithEnrollmentsNumber = await Promise.all(

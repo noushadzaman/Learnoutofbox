@@ -1,10 +1,13 @@
 "use server";
 
 import { getLoggedInUser } from "@/lib/loggedin-user";
-import { Attempt } from "@/model/test-attempt-model";
 import { Test } from "@/model/test-model";
+import { TestSet } from "@/model/testset-model";
 import { createTest, createTestAttempt } from "@/queries/tests";
 import { dbConnect } from "@/service/mongo";
+import { Attempt } from "@/model/test-attempt-model";
+import { AttemptSet } from "@/model/testset-attempt-model";
+import mongoose from "mongoose";
 
 export async function doCreateTest(values) {
   await dbConnect();
@@ -19,11 +22,11 @@ export async function doCreateTest(values) {
 
 export async function updateTest(testId, values) {
   try {
-    const exist = await Test.findOne({ slug: values.slug }).lean();
+    const exist = await TestSet.findOne({ slug: values.slug }).lean();
     if (exist) {
       return { exist: true };
     }
-    const test = await Test.findByIdAndUpdate(testId, values).lean();
+    const test = await TestSet.findByIdAndUpdate(testId, values).lean();
     return test;
   } catch (error) {
     throw new Error(error);
@@ -32,12 +35,18 @@ export async function updateTest(testId, values) {
 
 export async function updateTestQuestion(testId, values) {
   try {
-    const test = await Test.findOne({ _id: testId });
-    const newQuestion = {
-      ...values,
-    };
-    test.questions[values.id - 1] = newQuestion;
-    test.save();
+    await Test.findByIdAndUpdate(testId, values);
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function deleteTestQuestion(testSetId, testId) {
+  try {
+    await Test.findByIdAndDelete(testId);
+    const testSet = await TestSet.findById(testSetId);
+    testSet.questions.pull(testId);
+    testSet.save();
   } catch (error) {
     throw new Error(error);
   }
@@ -45,13 +54,10 @@ export async function updateTestQuestion(testId, values) {
 
 export async function addTestQuestion(testId, values) {
   try {
-    const test = await Test.findOne({ _id: testId });
-    const newQuestion = {
-      id: test.questions.length + 1,
-      ...values,
-    };
-    test.questions.push(newQuestion);
-    test.save();
+    const testSet = await TestSet.findOne({ _id: testId });
+    const test = await Test.create(values);
+    testSet.questions.push(test?._id);
+    testSet.save();
   } catch (error) {
     throw new Error(error);
   }
@@ -61,7 +67,6 @@ export async function doCreateTestAttempt(attempt) {
   await dbConnect();
   try {
     const test = await createTestAttempt(attempt);
-    console.log(test);
     return test;
   } catch (error) {
     throw new Error(error);
@@ -71,9 +76,28 @@ export async function doCreateTestAttempt(attempt) {
 export async function doUpdateTestAttempt({ attempts, userId, title }) {
   await dbConnect();
   try {
-    const attempt = await Attempt.findOne({ title, userId });
-    attempt.attempts = attempts;
-    attempt.save();
+    const attempt = await Attempt.create({
+      testId: attempts.id,
+      event: attempts.event,
+    });
+    const attemptSet = await AttemptSet.findOne({ title, userId });
+    attemptSet.attempts.push(new mongoose.Types.ObjectId(attempt._id));
+    attemptSet.save();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function goToPreviousTestAttempt({ lastAttempt, userId, title }) {
+  await dbConnect();
+  try {
+    const attempt = await Attempt.findOne({
+      testId: lastAttempt,
+    });
+    await Attempt.findByIdAndDelete(attempt._id);
+    const attemptSet = await AttemptSet.findOne({ title, userId });
+    attemptSet.attempts.pull(new mongoose.Types.ObjectId(attempt._id));
+    attemptSet.save();
   } catch (error) {
     throw new Error(error);
   }
@@ -81,9 +105,9 @@ export async function doUpdateTestAttempt({ attempts, userId, title }) {
 
 export async function changeTestPublishState(testId) {
   await dbConnect();
-  const test = await Test.findById(testId);
+  const test = await TestSet.findById(testId);
   try {
-    const res = await Test.findByIdAndUpdate(
+    const res = await TestSet.findByIdAndUpdate(
       testId,
       {
         active: !test.active,
@@ -99,7 +123,7 @@ export async function changeTestPublishState(testId) {
 
 export async function deleteTest(testId) {
   try {
-    await Test.findByIdAndDelete(testId);
+    await TestSet.findByIdAndDelete(testId);
   } catch (error) {
     throw new Error(error);
   }

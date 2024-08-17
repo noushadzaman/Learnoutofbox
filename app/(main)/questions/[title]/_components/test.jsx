@@ -5,7 +5,7 @@ import Progress from "./progress";
 import Question from "./question";
 import TestInteractions from "./test-interactions";
 import { Celebration } from "./celebration";
-import { doUpdateTestAttempt } from "@/app/actions/test";
+import { doUpdateTestAttempt, goToPreviousTestAttempt } from "@/app/actions/test";
 import { useRouter } from "next/navigation";
 
 const Test = ({ test, userId, previousAttempt }) => {
@@ -25,13 +25,11 @@ const Test = ({ test, userId, previousAttempt }) => {
             setIsBtnDisabled(true);
             if (userId) {
                 const newAttempt = {
-                    attempts: [
-                        ...attempts,
-                        {
-                            id: test?.questions[count].id,
-                            event
-                        }
-                    ],
+                    attempts:
+                    {
+                        id: test?.questions[count]._id,
+                        event
+                    },
                     userId,
                     title: test?.title
                 }
@@ -45,7 +43,7 @@ const Test = ({ test, userId, previousAttempt }) => {
             setAttempts([
                 ...attempts,
                 {
-                    id: test?.questions[count].id,
+                    id: test?.questions[count]._id,
                     event
                 }
             ]);
@@ -83,13 +81,13 @@ const Test = ({ test, userId, previousAttempt }) => {
             attempts.pop();
             setAttempts([...attempts]);
             const newAttempt = {
-                attempts,
+                lastAttempt: test?.questions[count - 1]._id,
                 userId,
                 title: test?.title
             }
             setIsBtnDisabled(true);
             if (userId) {
-                await doUpdateTestAttempt(newAttempt);
+                await goToPreviousTestAttempt(newAttempt);
             }
         }
         catch (error) {

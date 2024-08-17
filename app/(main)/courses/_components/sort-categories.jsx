@@ -9,24 +9,19 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { useRouter, useSearchParams } from "next/navigation";
-
 const SORT_OPTIONS = [
     { label: "Price: Low to High", value: "price-asc" },
     { label: "Price: High to Low", value: "price-desc" },
 ];
 
-const SortCourse = () => {
+
+const SortCategories = ({ categories }) => {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
 
     const handleValueChange = (value) => {
         const params = new URLSearchParams(searchParams);
-        params.set('page', 1);
-        if (value === "price-asc") {
-            params.set('price', 'asc');
-        } else if ("price-desc") {
-            params.set('price', 'desc');
-        }
+        params.set('categoryId', value);
         replace(`courses?${params.toString()}`);
     };
 
@@ -37,20 +32,20 @@ const SortCourse = () => {
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    {SORT_OPTIONS.map((option) => (
+                    {categories.map((c) => (
                         <SelectItem
                             className="cursor-pointer"
-                            key={option.value}
-                            value={option.value}
-                            onSelect={() => handleSelect(option.value)}
+                            key={c?.id}
+                            value={c?.id}
+                            onSelect={() => handleSelect(c?.id)}
                         >
-                            {option.label}
+                            {c?.title}
                         </SelectItem>
                     ))}
                 </SelectGroup>
             </SelectContent>
         </Select>
     )
-}
+};
 
-export default SortCourse;
+export default SortCategories;

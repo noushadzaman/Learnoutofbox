@@ -7,6 +7,8 @@ import AlertBanner from "@/components/alert-banner";
 
 const page = async ({ params: id }) => {
   const test = await getTestById(id);
+  console.log(test);
+  
 
   return (
     <>
@@ -18,7 +20,7 @@ const page = async ({ params: id }) => {
       )}
       <div className="flex flex-col-reverse items-end p-5">
         <div className="md:flex flex-row gap-5 items-start justify-between w-full">
-          <div>
+          <div className="min-w-[50%]">
             <TitleForm initialData={{ title: test?.title }} testId={test.id} />
             {test?.questions.map((q) => (
               <QAForm
@@ -30,11 +32,12 @@ const page = async ({ params: id }) => {
                   difficulty: q.difficulty,
                   id: q.id,
                 }}
-                testId={test?.id}
+                testId={q?._id}
+                testSetId={test?.id}
               />
             ))}
           </div>
-          <AddQAForm testId={test.id} />
+          <AddQAForm testId={test?.id} />
         </div>
         <TestActions testId={test.id} isActive={test?.active} />
       </div>

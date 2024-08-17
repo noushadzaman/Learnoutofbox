@@ -100,7 +100,7 @@ const AddCourse = () => {
                   <FormControl>
                     <Textarea
                       placeholder="Course overview"
-                      className="resize-none"
+                      className="resize-none min-h-[120px]"
                       {...field}
                     />
                   </FormControl>

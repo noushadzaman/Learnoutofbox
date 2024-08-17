@@ -18,7 +18,7 @@ const Features = () => {
                     align={'center'}
                 />
                 <div className="flex justify-center items-center gap-[25px] flex-col md:flex-row pt-[55px]">
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[300px]">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border cursor-pointer hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Brain}
@@ -27,16 +27,20 @@ const Features = () => {
                             width={500}
                         />
                         <h3 className="font-[800] text-[22px] text-[#00030e] ">Learn from Industry Experts</h3>
-                        <p className="text-[16px] text-[#606060]">Gain practical insights and knowledge directly from top professionals in the field.</p>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            className="text-sm text-[#ff4955] h-7 gap-1"
+                        <p className="text-[16px] text-[#606060]">Gain practical insights directly from top professionals in the field.</p>
+                        <Link
+                            href={`/courses`}
                         >
-                            Start Now!
-                        </Button>
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                className="text-sm text-[#ff4955] h-7 gap-1"
+                            >
+                                Start Now!
+                            </Button>
+                        </Link>
                     </div>
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[300px]">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border cursor-pointer hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Test}
@@ -58,7 +62,7 @@ const Features = () => {
                             </Button>
                         </Link>
                     </div>
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[300px]">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border cursor-pointer hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Certificate}
@@ -68,13 +72,17 @@ const Features = () => {
                         />
                         <h3 className="font-[800] text-[22px] text-[#00030e]">Get certification</h3>
                         <p className="text-[16px] text-[#606060]">Earn recognized credentials that validate your skills and enhance your career prospects.</p>
-                        <Button
-                            type="submit"
-                            variant="secondary"
-                            className="text-sm text-[#ff4955] h-7 gap-1"
+                        <Link
+                            href={`/courses`}
                         >
-                            Start Now!
-                        </Button>
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                className="text-sm text-[#ff4955] h-7 gap-1"
+                            >
+                                Start Now!
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </div>

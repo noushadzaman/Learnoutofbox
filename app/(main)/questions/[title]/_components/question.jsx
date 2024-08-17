@@ -7,7 +7,7 @@ const Question = ({ question, isQuestion, setIsQuestion }) => {
                 question &&
                 <>
                     <div className={`flex flex-col justify-center items-center w-[100%] h-[100%] px-[20px] py-[40px] gap-[80px] bg-[white] absolute ${!isQuestion && 'invisible'}`}>
-                        <p className="text-[14px] text-gray-400">{question?.topic}・Intermediate</p>
+                        <p className="text-[14px] text-gray-400">{question?.topic}・{question?.difficulty}</p>
                         <p className="text-[30px] font-[600]">{question?.question}</p>
                         <button
                             onClick={() => setIsQuestion(!isQuestion)}

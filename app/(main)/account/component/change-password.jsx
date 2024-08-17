@@ -48,7 +48,7 @@ const ChangePassword = ({ email }) => {
                 Change password :
             </h5>
             <form onSubmit={doPasswordChange}>
-                <div className="grid grid-cols-1 gap-5">
+                <div className="space-y-5 w-[100%]">
                     <div>
                         <Label className="mb-2 block">Old password :</Label>
                         <Input
