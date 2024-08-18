@@ -10,6 +10,7 @@ const EnrollCourse = ({ asLink, courseId, loggedInUser }) => {
     const formAction = async (data) => {
         if (!loggedInUser) {
             redirect('/login');
+            return;
         }
         const { url } = await createCheckoutSession(data);
         window.location.assign(url);

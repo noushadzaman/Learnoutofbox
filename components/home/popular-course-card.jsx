@@ -1,12 +1,12 @@
 import { getCourseDetailsForCard } from "@/queries/courses";
-import { Heart, NotebookText, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import EnrollCourse from "../enroll-course";
 
-const CourseCard = async ({ course }) => {
+const CourseCard = async ({ course, loggedInUser }) => {
     const courseDetails = await getCourseDetailsForCard(course.id);
-    const { title, description, modules, price, instructor, testimonials,
+    const { title, description, price, instructor, 
         thumbnail, category } = courseDetails || {};
 
     return (
@@ -59,7 +59,7 @@ const CourseCard = async ({ course }) => {
                         <Users size={15} className="text-[#fe4a55]" />
                         <p className="text-[15px]">{course?.count} Students</p>
                     </div>
-                    <EnrollCourse asLink={true} courseId={course?.id} />
+                    <EnrollCourse asLink={true} courseId={course?.id} loggedInUser={loggedInUser} />
                 </div>
             </div>
         </div>

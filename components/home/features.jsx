@@ -18,7 +18,7 @@ const Features = () => {
                     align={'center'}
                 />
                 <div className="flex justify-center items-center gap-[25px] flex-col md:flex-row pt-[55px]">
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border cursor-pointer hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Brain}
@@ -40,7 +40,7 @@ const Features = () => {
                             </Button>
                         </Link>
                     </div>
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border cursor-pointer hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Test}
@@ -62,7 +62,7 @@ const Features = () => {
                             </Button>
                         </Link>
                     </div>
-                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border cursor-pointer hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
+                    <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
                         <Image
                             className="h-[60px] w-[60px]"
                             src={Certificate}

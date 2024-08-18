@@ -5,11 +5,11 @@ import { getTestsByCreator } from "@/queries/tests";
 
 const page = async () => {
   const session = await auth();
-  const courses = await getTestsByCreator({ creator: session?.user?.email });
+  const tests = await getTestsByCreator({ creator: session?.user?.email });
 
   return (
     <div className="p-6">
-      <DataTable columns={columns} data={courses} />
+      <DataTable columns={columns} data={tests} />
     </div>
   );
 };

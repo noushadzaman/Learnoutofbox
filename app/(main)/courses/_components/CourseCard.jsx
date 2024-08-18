@@ -4,7 +4,7 @@ import { NotebookText, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const CourseCard = async ({ course }) => {
+const CourseCard = async ({ course, loggedInUser }) => {
   const courseDetails = await getCourseDetailsForCard(course.id);
   const { title, description, modules, price, instructor, testimonials,
     thumbnail } = courseDetails || {};
@@ -62,7 +62,7 @@ const CourseCard = async ({ course }) => {
             <Users size={15} className="text-[#fe4a55]" />
             <p className="text-[15px]">{course?.enrollments?.length} Students</p>
           </div>
-          <EnrollCourse asLink={true} courseId={course?.id} />
+          <EnrollCourse asLink={true} courseId={course?.id} loggedInUser={loggedInUser} />
         </div>
       </div>
     </div>

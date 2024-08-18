@@ -2,8 +2,12 @@ import Link from "next/link";
 import Introductions from "./introductions";
 import CourseCard from "./popular-course-card";
 import { getMostPopularCourses } from "@/queries/home";
+import { getUserByEmail } from "@/queries/users";
+import { auth } from "@/auth";
 
 const PopularCourses = async () => {
+    const session = await auth();
+    const loggedInUser = await getUserByEmail(session?.user?.email);
     const popularCourses = await getMostPopularCourses();
 
     return (
@@ -20,6 +24,7 @@ const PopularCourses = async () => {
                     popularCourses.map(course => <CourseCard
                         key={course.id}
                         course={course}
+                        loggedInUser={loggedInUser}
                     />)
                 }
             </div>

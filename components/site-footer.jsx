@@ -61,7 +61,7 @@ export function SiteFooter({ className }) {
               <p>Azimpur Dhaka, Bangladesh.</p>
               <p>1205</p>
               <p>noushadozi333@gmail.com</p>
-              <p>01534672418</p>
+              <p>+88015 346 724 18</p>
             </div>
           </div>
 

@@ -8,9 +8,7 @@ import { getTestimonialsForCourse } from "@/queries/testimonials";
 const SingleCoursePage = async ({ params: { id } }) => {
   const course = await getCourseDetails(id);
   const testimonials = await getTestimonialsForCourse(id);
-  const demoVideos = await getCourseDemoVideos(id);
-  console.log(testimonials);
-  
+  const demoVideos = await getCourseDemoVideos(id); 
 
   return (
     <>

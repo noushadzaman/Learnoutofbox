@@ -5,11 +5,15 @@ import CourseCard from "./_components/CourseCard";
 import { CoursePagination } from "./_components/pagination";
 import SortCategories from "./_components/sort-categories";
 import { getCategories } from "@/queries/categories";
+import { auth } from "@/auth";
+import { getUserByEmail } from "@/queries/users";
 
 const CoursesPage = async ({ searchParams: { categoryId, page, course, price } }) => {
   const count = await getCourseCount(categoryId);
   const categories = await getCategories();
   const courses = await getCourseList(categoryId, page, course, price);
+  const session = await auth();
+  const loggedInUser = await getUserByEmail(session?.user?.email);
 
   return (
     <section
@@ -28,7 +32,7 @@ const CoursesPage = async ({ searchParams: { categoryId, page, course, price } }
         <div className="lg:col-span-3 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 justify-items-center">
           {courses.map((course) => {
             return (
-              <CourseCard key={course.id} course={course} />
+              <CourseCard key={course.id} course={course} loggedInUser={loggedInUser} />
             );
           })}
         </div>

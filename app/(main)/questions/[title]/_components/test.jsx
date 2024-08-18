@@ -101,6 +101,7 @@ const Test = ({ test, userId, previousAttempt }) => {
     const reset = async () => {
         setCount(0);
         setProgress(0);
+        setIsQuestion(true)
         setAttempts([]);
         setIsBtnDisabled(true);
         try {

@@ -16,6 +16,7 @@ const SortCategories = ({ categories }) => {
 
     const handleValueChange = (value) => {
         const params = new URLSearchParams(searchParams);
+        params.delete('page')
         params.set('categoryId', value);
         replace(`courses?${params.toString()}`);
     };
