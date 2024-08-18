@@ -34,7 +34,6 @@ export async function getTestById(id) {
       return test;
     })
   );
-  // console.log({ ...testSet, questions: questions });
   return replaceMongoIdInObject({ ...testSet, questions: questions });
 }
 

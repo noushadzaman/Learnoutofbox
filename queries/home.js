@@ -36,6 +36,7 @@ export async function getReviews() {
 }
 
 export async function getEnrolledCount() {
+  await dbConnect();
   try {
     const count = await Enrollment.countDocuments();
     return count;
@@ -46,6 +47,7 @@ export async function getEnrolledCount() {
 }
 
 export async function getInstructorCount() {
+  await dbConnect();
   try {
     const count = await User.countDocuments({ role: "instructor" });
     return count;

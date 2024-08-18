@@ -1,5 +1,4 @@
 import { replaceMongoIdInArray } from "@/lib/convertData";
-import { Category } from "@/model/category-model";
 import { Course } from "@/model/course-model";
 import { Enrollment } from "@/model/enrollment-model";
 import { dbConnect } from "@/service/mongo";

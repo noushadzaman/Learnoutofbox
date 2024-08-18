@@ -9,11 +9,6 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { useRouter, useSearchParams } from "next/navigation";
-const SORT_OPTIONS = [
-    { label: "Price: Low to High", value: "price-asc" },
-    { label: "Price: High to Low", value: "price-desc" },
-];
-
 
 const SortCategories = ({ categories }) => {
     const searchParams = useSearchParams();

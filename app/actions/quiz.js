@@ -6,9 +6,11 @@ import { Assessment } from "@/model/assessment-model";
 import { QuizSet } from "@/model/quizset-model";
 import { createQuiz, getQuizSetById } from "@/queries/quizzes";
 import { createAssessmentReport } from "@/queries/reports";
+import { dbConnect } from "@/service/mongo";
 import mongoose from "mongoose";
 
 export async function updateQuizSet(quizSet, dataToUpdate) {
+  await dbConnect();
   try {
     await QuizSet.findByIdAndUpdate(quizSet, dataToUpdate);
   } catch (err) {
@@ -17,6 +19,7 @@ export async function updateQuizSet(quizSet, dataToUpdate) {
 }
 
 export async function addQuizToQuizSet(quizSetId, quizData) {
+  await dbConnect();
   try {
     const transformedQuizData = {};
     transformedQuizData["question"] = quizData["title"];
@@ -51,6 +54,7 @@ export async function addQuizToQuizSet(quizSetId, quizData) {
 }
 
 export async function doCreateQuizSet(data) {
+  await dbConnect();
   try {
     data["slug"] = getSlug(data.title);
     const createdQuizSet = await QuizSet.create(data);
@@ -61,8 +65,8 @@ export async function doCreateQuizSet(data) {
 }
 
 export async function addQuizAssessment(courseId, quizSetId, answers) {
+  await dbConnect();
   try {
-    console.log(quizSetId, answers);
     const quizSet = await getQuizSetById(quizSetId);
     const quizzes = replaceMongoIdInArray(quizSet.quizIds);
 

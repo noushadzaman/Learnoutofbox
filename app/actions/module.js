@@ -4,8 +4,10 @@ import { create } from "@/queries/modules";
 import { Course } from "@/model/course-model";
 import { Module } from "@/model/module-model";
 import mongoose from "mongoose";
+import { dbConnect } from "@/service/mongo";
 
 export async function createModule(data) {
+  await dbConnect();
   try {
     const title = data.get("title");
     const slug = data.get("slug");
@@ -30,6 +32,7 @@ export async function createModule(data) {
 }
 
 export async function reOrderModules(data) {
+  await dbConnect();
   try {
     await Promise.all(
       data.map(async (element) => {
@@ -42,6 +45,7 @@ export async function reOrderModules(data) {
 }
 
 export async function updateModule(moduleId, data) {
+  await dbConnect();
   try {
     await Module.findByIdAndUpdate(moduleId, data);
   } catch (e) {
@@ -50,6 +54,7 @@ export async function updateModule(moduleId, data) {
 }
 
 export async function changeModulePublishState(moduleId) {
+  await dbConnect();
   const singleModule = await Module.findById(moduleId);
   try {
     const res = await Module.findByIdAndUpdate(
@@ -67,6 +72,7 @@ export async function changeModulePublishState(moduleId) {
 }
 
 export async function deleteModule(moduleId, courseId) {
+  await dbConnect();
   try {
     const course = await Course.findById(courseId);
     course.modules.pull(new mongoose.Types.ObjectId(moduleId));

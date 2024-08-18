@@ -1,8 +1,10 @@
 "use server";
 
 import { signIn } from "@/auth";
+import { dbConnect } from "@/service/mongo";
 
 export async function credentialLogin(formData) {
+  await dbConnect();
   try {
     const response = await signIn("credentials", {
       email: formData.get("email"),
@@ -17,6 +19,7 @@ export async function credentialLogin(formData) {
 }
 
 export async function doSocialLogin(formData) {
+  await dbConnect();
   const action = formData.get("action");
   await signIn(action, { redirectTo: "/courses" });
 }

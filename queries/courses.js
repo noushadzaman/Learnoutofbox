@@ -96,14 +96,6 @@ export async function getCourseDetails(id) {
       path: "instructor",
       model: User,
     })
-    // .populate({
-    //   path: "testimonials",
-    //   model: Testimonial,
-    //   populate: {
-    //     path: "user",
-    //     model: User,
-    //   },
-    // })
     .populate({
       path: "quizSet",
       model: QuizSet,
@@ -124,12 +116,65 @@ export async function getCourseDetailsByInstructor(instructorId, expand) {
     active: true,
   }).lean();
 
+  let courseWiseEnrollments = [];
   const enrollments = await Promise.all(
     publishedCourses.map(async (course) => {
       const enrollment = await getEnrollmentsForCourse(course._id.toString());
+      if (enrollment.length > 0) {
+        courseWiseEnrollments.push({
+          title: course.title,
+          enrolled: enrollment.length,
+        });
+      }
       return enrollment;
     })
   );
+
+  const enrollmentsGroupedByMonth = [];
+  const currentDate = new Date();
+
+  const twelveMonthsAgo = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() - 11,
+    1
+  );
+
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  enrollments.flat().forEach((item) => {
+    const date = new Date(item.enrollment_date);
+    if (date >= twelveMonthsAgo) {
+      const monthName = monthNames[date.getMonth()];
+
+      let monthGroup = enrollmentsGroupedByMonth.find(
+        (group) => group.month === monthName
+      );
+
+      if (!monthGroup) {
+        monthGroup = { month: monthName, enrollments: [] };
+        enrollmentsGroupedByMonth.push(monthGroup);
+      }
+
+      monthGroup.enrollments.push(item);
+    }
+  });
+  enrollmentsGroupedByMonth.sort(
+    (a, b) => monthNames.indexOf(a.month) - monthNames.indexOf(b.month)
+  );
+
   const groupedByCourses = groupBy(enrollments.flat(), ({ course }) => course);
 
   const totalRevenue = publishedCourses.reduce((acc, course) => {
@@ -167,6 +212,8 @@ export async function getCourseDetailsByInstructor(instructorId, expand) {
 
   return {
     courses: publishedCourses.length,
+    courseWiseEnrollments: courseWiseEnrollments,
+    dateWiseEnrollments: enrollmentsGroupedByMonth,
     enrollments: totalEnrollments,
     reviews: totalTestimonials.length,
     ratings: avgRating.toPrecision(2),

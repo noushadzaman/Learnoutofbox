@@ -5,7 +5,7 @@ import Progress from "./progress";
 import Question from "./question";
 import TestInteractions from "./test-interactions";
 import { Celebration } from "./celebration";
-import { doUpdateTestAttempt, goToPreviousTestAttempt } from "@/app/actions/test";
+import { doDeleteTestAttempts, doUpdateTestAttempt, goToPreviousTestAttempt } from "@/app/actions/test";
 import { useRouter } from "next/navigation";
 
 const Test = ({ test, userId, previousAttempt }) => {
@@ -105,12 +105,11 @@ const Test = ({ test, userId, previousAttempt }) => {
         setIsBtnDisabled(true);
         try {
             const newAttempt = {
-                attempts: [],
                 userId,
                 title: test?.title
             };
             if (userId) {
-                await doUpdateTestAttempt(newAttempt);
+                await doDeleteTestAttempts(newAttempt);
             }
         }
         catch (error) {

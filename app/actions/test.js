@@ -21,6 +21,7 @@ export async function doCreateTest(values) {
 }
 
 export async function updateTest(testId, values) {
+  await dbConnect();
   try {
     const exist = await TestSet.findOne({ slug: values.slug }).lean();
     if (exist) {
@@ -34,6 +35,7 @@ export async function updateTest(testId, values) {
 }
 
 export async function updateTestQuestion(testId, values) {
+  await dbConnect();
   try {
     await Test.findByIdAndUpdate(testId, values);
   } catch (error) {
@@ -42,6 +44,7 @@ export async function updateTestQuestion(testId, values) {
 }
 
 export async function deleteTestQuestion(testSetId, testId) {
+  await dbConnect();
   try {
     await Test.findByIdAndDelete(testId);
     const testSet = await TestSet.findById(testSetId);
@@ -53,6 +56,7 @@ export async function deleteTestQuestion(testSetId, testId) {
 }
 
 export async function addTestQuestion(testId, values) {
+  await dbConnect();
   try {
     const testSet = await TestSet.findOne({ _id: testId });
     const test = await Test.create(values);
@@ -103,6 +107,25 @@ export async function goToPreviousTestAttempt({ lastAttempt, userId, title }) {
   }
 }
 
+export async function doDeleteTestAttempts({ userId, title }) {
+  await dbConnect();
+  try {
+    const attemptSet = await AttemptSet.findOne({
+      userId: userId,
+      title: title,
+    });
+    Promise.all(
+      attemptSet?.attempts.map(async (attempt) => {
+        const res = await Attempt.findByIdAndDelete(attempt);
+      })
+    );
+    attemptSet.attempts = [];
+    attemptSet.save();
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export async function changeTestPublishState(testId) {
   await dbConnect();
   const test = await TestSet.findById(testId);
@@ -122,6 +145,7 @@ export async function changeTestPublishState(testId) {
 }
 
 export async function deleteTest(testId) {
+  await dbConnect();
   try {
     await TestSet.findByIdAndDelete(testId);
   } catch (error) {

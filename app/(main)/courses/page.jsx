@@ -6,7 +6,7 @@ import { CoursePagination } from "./_components/pagination";
 import SortCategories from "./_components/sort-categories";
 import { getCategories } from "@/queries/categories";
 
-const CoursesPage = async ({ searchParams: { page, course, price, categoryId } }) => {
+const CoursesPage = async ({ searchParams: { categoryId, page, course, price } }) => {
   const count = await getCourseCount(categoryId);
   const categories = await getCategories();
   const courses = await getCourseList(categoryId, page, course, price);
@@ -23,7 +23,7 @@ const CoursesPage = async ({ searchParams: { page, course, price, categoryId } }
         <SortCourse />
         <SortCategories categories={categories} />
       </div>
-      <CoursePagination count={count} />
+      <CoursePagination count={count} defaultPage={page} />
       <section className="pb-24 pt-6 max-w-[1200px] mx-auto">
         <div className="lg:col-span-3 grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 justify-items-center">
           {courses.map((course) => {

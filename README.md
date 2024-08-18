@@ -24,6 +24,7 @@ This LMS application is a comprehensive platform designed to enhance the educati
 - Strip
 - React Hook Form
 - TanStack-table
+- Recharts
 - Zod
 - Resend
 - MongoDB
@@ -32,17 +33,17 @@ This LMS application is a comprehensive platform designed to enhance the educati
 ## 🧑🏻‍🏫 Instructor features:
 
 - <strong>Add, delete, publish or hide</strong> courses, modules, or lessons individually.
-- <strong>Update course data individually</strong> and independently.
-- <strong>Drag an drop to reorder</strong> modules and lessons as suitable.
-- <strong>Add quizzes</strong> on the course for student to test their learning progress.
-- Inspect created <strong>courses by filtering or searching</strong> them or see more details of the course.
+- <strong>Update</strong> course data individually and independently.
+- <strong>Drag an drop</strong> to reorder modules and lessons as suitable.
+- <strong>Add</strong> quizzes on the course for student to test their learning progress.
+- Inspect created courses by <strong>filtering or searching</strong> them or see more details of the course.
   - <small>Review details.</small>
   - <small>Enrollment details.</small>
     - <small>Search enrolled user.</small>
     - <small>filter enrolled user.</small>
-- See created <strong>assessments by filtering or searching</strong> them.
+- See created assessments by <strong>filtering or searching</strong> them.
 - <strong>Add</strong> a assessment, <strong>delete</strong> a assessment, <strong>update</strong> a assessment, <strong>publish or hide</strong> a assessment.
-- Analyze <strong>revenue and other information.</strong>
+- Analyze revenue and other information with <strong>Pie Chart & Bar Chart.</strong>
 
 ## 🧑🏻‍🎓 Student features:
 
