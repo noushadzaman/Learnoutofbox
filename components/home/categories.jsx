@@ -14,7 +14,7 @@ const Categories = async () => {
                 size={'half'}
                 align={'center'}
             />
-            <div className="grid grid-cols-3 gap-[25px] my-10 max-w-[1100px] mx-auto">
+            <div className="grid md:grid-cols-3 gap-[25px] my-10 max-w-[1100px] mx-auto">
                 {
                     categories.slice(0, 6).map(c => <Category key={c?.id} c={c} />)
                 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "@/components/mobile-nav";
 import { Logo } from "./logo";
-import { X } from "lucide-react";
+import { User, X } from "lucide-react";
 import { Button, buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
 import {
@@ -104,7 +104,9 @@ export function MainNav({ items, children }) {
 									src={loggedInUser?.profilePicture}
 									alt="@shadcn"
 								/>
-								<AvatarFallback>CN</AvatarFallback>
+								<AvatarFallback>
+									<User />
+								</AvatarFallback>
 							</Avatar>
 						</div>
 					</DropdownMenuTrigger>

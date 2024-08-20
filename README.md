@@ -6,6 +6,7 @@
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Mongoose](https://img.shields.io/badge/Mongoose-A52A2A.svg?style=for-the-badge&logo=mongoose&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
 </div><div align="center">
 
@@ -29,6 +30,7 @@ This LMS application is a comprehensive platform designed to enhance the educati
 - Resend
 - MongoDB
 - Mongoose
+- Node.js
 
 ## 🧑🏻‍🏫 Instructor features:
 
