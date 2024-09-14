@@ -76,7 +76,7 @@ export const AccessAsDemoForm = ({ initialData, courseId, lessonId }) => {
                 </Button>
             </div>
             {!isEditing && (
-                <p
+                <div
                     className={cn(
                         "text-sm mt-2",
                         !free && "text-slate-500 italic"
@@ -87,7 +87,7 @@ export const AccessAsDemoForm = ({ initialData, courseId, lessonId }) => {
                             <p>This chapter is demo</p>
                             : <p>This chapter is not demo</p>
                     }
-                </p>
+                </div>
             )}
             {isEditing && (
                 <Form {...form}>

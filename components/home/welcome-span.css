@@ -1,19 +1,10 @@
 .button {
-    --black-700: hsla(0 0% 12% / 1);
     --border_radius: 333333px;
-    --transtion: 0.3s ease-in-out;
-    --offset: 2px;
-    position: relative;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transform-origin: center;
     padding: 7px 15px;
-    background-color: transparent;
-    border: none;
-    border-radius: var(--border_radius);
     transform: scale(calc(1 + (var(--active, 0) * 0.1)));
-    transition: transform var(--transtion);
 }
 
 .button::before {
@@ -26,12 +17,10 @@
     height: 100%;
     background-color: #02060e;
     border-radius: var(--border_radius);
-    transition: all var(--transtion);
-    z-index: 0;
 }
 
 .button .dots_border {
-    --size_border: calc(100% + 4px);
+    --size_border: calc(100% + 5px);
     overflow: hidden;
     position: absolute;
     top: 50%;
@@ -39,7 +28,6 @@
     transform: translate(-50%, -50%);
     width: var(--size_border);
     height: var(--size_border);
-    background-color: transparent;
     border-radius: var(--border_radius);
     z-index: -10;
 }
@@ -66,7 +54,6 @@
 }
 
 .button .sparkle {
-    position: relative;
     z-index: 10;
     width: 1.75rem;
 }
@@ -117,7 +104,6 @@
 }
 
 .button .text_button {
-    position: relative;
     z-index: 10;
     background-color: #9ab3db;
     background-clip: text;

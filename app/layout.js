@@ -20,6 +20,7 @@ export default async function RootLayout({ children }) {
       <body className={cn(inter.className, poppins.className)}>
         {children}
         <Toaster richColors position="top-center" />
+        <div id="modal-root-id"></div>
       </body>
     </html>
   );

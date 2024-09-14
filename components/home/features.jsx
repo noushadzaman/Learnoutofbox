@@ -1,16 +1,18 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Brain from '../../public/assets/brain-logo.png';
-import Test from '../../public/test-logo.png';
+import TestLogo from '../../public/test-logo.png';
 import Certificate from '../../public/certificate-logo.png';
 import Introductions from "./introductions";
 import Link from "next/link";
+import ShapeDiv from "./ShapeDiv";
 
 const Features = () => {
     return (
-        <section className="bg-[#fef8f8] py-[100px]">
+        <section className="bg-[#fef8f8] py-[100px] relative">
             <div className="max-w-[1300px] mx-auto">
                 <Introductions
+                    key={1}
                     title={'EDUCATION FOR EVERYONE'}
                     subtitle={'Online Coaching Lessons For Remote Learning'}
                     description={"Learn from anywhere with our expert-led online courses, designed to make quality education accessible to all. Join a global community of learners and advance your knowledge from the comfort of your home."}
@@ -43,7 +45,7 @@ const Features = () => {
                     <div className="bg-[#ffffff] flex flex-col gap-[16px] justify-center items-start px-[35px] py-[40px] rounded-[5px] w-[400px] hover:scale-110 ease-linear duration-100 h-[320px]  border-gray-200 border hover:border-gray-400 shadow-[#e1ecfe] shadow-lg">
                         <Image
                             className="h-[60px] w-[60px]"
-                            src={Test}
+                            src={TestLogo}
                             alt=""
                             height={500}
                             width={500}
@@ -85,6 +87,12 @@ const Features = () => {
                         </Link>
                     </div>
                 </div>
+            </div>
+            <div className="hidden md:block absolute top-[50px] left-[60px]">
+                <ShapeDiv variations={`w-[80px] h-[80px] bg-[#f58e87] shadow-lg`} />
+            </div>
+            <div className="hidden md:block absolute top-[190px] right-[60px]">
+                <ShapeDiv variations="w-[50px] h-[50px] bg-[#9ab3db] shadow-lg" />
             </div>
         </section>
     );

@@ -12,6 +12,8 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
+import Envelope from '../../public/love-letter-render-with-hearts-around-2.png'
+
 
 export function TestimonialCarousel({ reviews }) {
     const plugin = React.useRef(
@@ -25,6 +27,13 @@ export function TestimonialCarousel({ reviews }) {
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
         >
+            <Image
+                className="w-[90px] h-[90px] absolute top-1 right-1 z-20"
+                alt="Envelope"
+                height={1500}
+                width={1500}
+                src={Envelope}
+            />
             <CarouselContent>
                 {
                     reviews.map(review => <CarouselItem key={review.id}>

@@ -13,6 +13,7 @@ const PopularCourses = async () => {
     return (
         <section className="py-[100px] max-w-[1250px] mx-auto">
             <Introductions
+                key={2}
                 title={'GO AT YOUR OWN PACE'}
                 subtitle={'Top Selling Courses'}
                 description={'Explore all of our courses and pick your suitable ones to enroll and start learning with us! We ensure that you will never regret it!'}

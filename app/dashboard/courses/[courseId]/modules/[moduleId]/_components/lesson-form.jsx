@@ -19,7 +19,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { LessonList } from "./lesson-list";
-import { LessonModal } from "./lesson-modal";
 import { getSlug } from "@/lib/convertData";
 import { createLesson, reOrderLesson } from "@/app/actions/lesson";
 
@@ -28,15 +27,14 @@ const formSchema = z.object({
 });
 
 export const LessonForm = ({ initialData, courseId, moduleId }) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [lessons, setLessons] = useState(initialData);
+  console.log(lessons);
+   
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [lessonToEdit, setLessonToEdit] = useState(null);
 
   const toggleCreating = () => setIsCreating((current) => !current);
-  const toggleEditing = () => setIsEditing((current) => !current);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -84,12 +82,6 @@ export const LessonForm = ({ initialData, courseId, moduleId }) => {
     } finally {
       setIsUpdating(false);
     }
-  };
-
-  const onEdit = (id) => {
-    const foundLesson = lessons.find(l => l.id === id);
-    setLessonToEdit(foundLesson);
-    setIsEditing(true);
   };
 
   return (
@@ -150,7 +142,8 @@ export const LessonForm = ({ initialData, courseId, moduleId }) => {
         >
           {!lessons?.length && "No lesson"}
           <LessonList
-            onEdit={onEdit}
+            courseId={courseId}
+            moduleId={moduleId}
             onReorder={onReorder}
             items={lessons || []}
           />
@@ -161,14 +154,6 @@ export const LessonForm = ({ initialData, courseId, moduleId }) => {
           Drag & Drop to reorder the lessons
         </p>
       )}
-      <LessonModal
-        open={isEditing}
-        setOpen={setIsEditing}
-        courseId={courseId}
-        lesson={lessonToEdit}
-        moduleId={moduleId}
-        onclose={() => { window.location.reload() }}
-      />
     </div>
   );
 };

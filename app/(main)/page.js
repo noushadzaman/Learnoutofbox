@@ -6,17 +6,30 @@ import HomeTestimonials from "@/components/home/testimonials";
 import React from "react";
 import { Info } from "@/components/home/info";
 import Categories from "@/components/home/categories";
+import DelayDiv from "@/components/home/DelayDiv";
 
 const HomePage = async () => {
   return (
     <>
       <Banner />
-      <Features />
-      <PopularCourses />
-      <Categories />
-      <BannerTwo />
-      <HomeTestimonials />
-      <Info />
+      <DelayDiv>
+        <Features />
+      </DelayDiv>
+      <DelayDiv>
+        <PopularCourses />
+      </DelayDiv>
+      <DelayDiv>
+        <Categories />
+      </DelayDiv>
+      <DelayDiv>
+        <BannerTwo />
+      </DelayDiv>
+      <DelayDiv>
+        <HomeTestimonials />
+      </DelayDiv>
+      <DelayDiv>
+        <Info />
+      </DelayDiv>
     </>
   );
 };

@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { changeLessonPublishState, deleteLesson } from "@/app/actions/lesson";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-export const LessonsActions = ({ lesson, moduleId, onDelete }) => {
+export const LessonsActions = ({ lesson, moduleId }) => {
+    const router = useRouter();
     const [action, setAction] = useState(null);
     const [isPublished, setIsPublished] = useState(lesson?.active);
+
     async function handleSubmit(event) {
         event.preventDefault();
         try {
@@ -24,7 +27,7 @@ export const LessonsActions = ({ lesson, moduleId, onDelete }) => {
                     }
                     else {
                         await deleteLesson(lesson.id, moduleId);
-                        onDelete();
+                        router.back();
                         toast.success("The lesson has been deleted");
                     }
                     break;
