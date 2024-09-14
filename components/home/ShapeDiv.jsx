@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const ShapeDiv = ({ variations }) => {
+const ShapeDiv = ({ variations, children }) => {
     const shapes = [
         "88% 68% 73% 90% / 53% 80% 60% 70%",
         "50% 5% 85% 25% / 20% 80% 10% 60%",
@@ -42,10 +42,10 @@ const ShapeDiv = ({ variations }) => {
     return (
         <>
             <motion.div
-                className={`${variations} border-none`}
+                className={`${variations} border-none flex items-center justify-center`}
                 animate="animate"
                 variants={blobVariants}
-            />
+            >{children}</motion.div>
         </>
     );
 };

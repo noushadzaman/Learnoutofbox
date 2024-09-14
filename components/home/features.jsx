@@ -9,7 +9,7 @@ import ShapeDiv from "./ShapeDiv";
 
 const Features = () => {
     return (
-        <section className="bg-[#fef8f8] py-[100px] relative">
+        <section className="bg-[#fef8f8] py-[100px]">
             <div className="max-w-[1300px] mx-auto">
                 <Introductions
                     key={1}
@@ -87,12 +87,6 @@ const Features = () => {
                         </Link>
                     </div>
                 </div>
-            </div>
-            <div className="hidden md:block absolute top-[50px] left-[60px]">
-                <ShapeDiv variations={`w-[80px] h-[80px] bg-[#f58e87] shadow-lg`} />
-            </div>
-            <div className="hidden md:block absolute top-[190px] right-[60px]">
-                <ShapeDiv variations="w-[50px] h-[50px] bg-[#9ab3db] shadow-lg" />
             </div>
         </section>
     );

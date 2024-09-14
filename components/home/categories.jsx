@@ -21,12 +21,6 @@ const Categories = async () => {
                     categories.slice(0, 6).map(c => <Category key={c?.id} c={c} />)
                 }
             </div>
-            <div className="hidden md:block absolute top-[90px] left-[150px]">
-                <ShapeDiv variations={`w-[50px] h-[50px] bg-[#9ab3db] shadow-lg`} />
-            </div>
-            <div className="hidden md:block absolute top-[215px] right-[75px] z-0">
-                <ShapeDiv variations={`w-[80px] h-[80px] bg-[#f58e87] shadow-lg`} />
-            </div>
         </div>
     );
 };

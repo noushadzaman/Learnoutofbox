@@ -70,7 +70,7 @@ export function MainNav({ items, children }) {
 					<MobileNav items={items}>{children}</MobileNav>
 				)}
 			</div>
-			<nav className="flex items-center gap-3">
+			<nav className="flex items-center gap-3 z-50">
 				{
 					!loginSession &&
 					<div className="items-center gap-3 hidden lg:flex">
